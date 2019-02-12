@@ -10,3 +10,16 @@ a.return-link {
     color: #1EC9F4;
     font-size: 15px;
 }
+
+a.no-underline {
+    text-decoration: none;
+}
+
+.text-padding {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.function {
+    font-size: 20px;
+}
