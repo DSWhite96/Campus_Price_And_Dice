@@ -30,3 +30,8 @@ li.navbar-inline a.nav:hover {
     font-weight: 900;
 
 }
+
+li.navbar-inline input.search-bar {
+    float: right;
+    margin-right: 20px;
+}

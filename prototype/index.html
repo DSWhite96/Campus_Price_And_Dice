@@ -2,15 +2,20 @@
 <html>
     <head>
         <title>Campus Price and Dice</title>
-        <link rel="stylesheet" href="css/page-headers.css">
+        <link rel="stylesheet" href="css/page-fonts.css">
         <link rel="stylesheet" href="css/navbar.css">
         <link rel="stylesheet" href="css/fonts.css">
         <link rel="stylesheet" href="css/structure.css">
+        <link rel="stylesheet" href="css/lists.css">
+
+        <link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
+        
        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" 
         integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
        -->
     </head>
     <body>
+       
             <div class="container">
                 <div class="page-title">Campus Price and Dice</div>
                 <nav class="navbar-dark">
@@ -18,24 +23,32 @@
                         <li class="navbar-inline"><a class="nav" href="">Dashboard</a></li>
                         <li class="navbar-inline"><a class="nav" href="">Compare Restaurants</a></li>
                         <li class="navbar-inline"><a class="nav" href="">Configure</a></li>
+                        <li class="navbar-inline">
+                            <input 
+                            type="text" 
+                            placeholder = "&#x1F50D; Search"
+                            class="search-bar"
+                            >
+                        </li>
                     </ul>
                 </nav>
+                
                 <div>
                     <h2>Your favorite Restaurants</h2>
-                    <ul>
-                        <li><a href="">Campus Diner</a></li>
+                    <ul class="unstyled-list">
+                        <li><a href="restaurants/campus-diner.html">Campus Diner</a></li>
                         <li><a href="">Mac'n Brewz!</a></li>
                         <li><a href="">Epicurus</a></li>
                     </ul>
                     <h2>Cheapest Restaurants</h2>
-                    <ul>
+                    <ul class="unstyled-list">
                         <li><a href="">Taco Bell</a></li>
                         <li><a href="">Panda Express</a></li>
                         <li><a href="">Chik-fil-a</a></li>
                         <li><a href="">Mcdonalds</a></li>
                     </ul>
-                    <h3>New Restaurants</h3>
-                    <ul>
+                    <h2>New Restaurants</h3>
+                    <ul class="unstyled-list">
                         <li><a href="">Coney Island</a></li>
                         <li><a href="">1000&#176; Pizaa</a></li>
                         <li><a href="">Potato Place</a></li>
@@ -47,3 +60,4 @@
   
     </body>
 </html>
+
