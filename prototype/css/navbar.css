@@ -1,0 +1,32 @@
+nav.navbar-dark {
+    height: 30px;
+    background-color: black;
+}
+
+ul.navbar-list {
+    list-style-type: none;
+    margin: 20;
+    padding-top: 5px;
+    overflow: hidden;
+    text-align: center;
+}
+
+li.navbar-inline {
+    display: inline;
+}
+
+li.navbar-inline a.nav {
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    font-weight: 900;
+
+}
+
+li.navbar-inline a.nav:hover {
+    color: #bfbfbf;
+    padding: 10px;
+    text-decoration: none;
+    font-weight: 900;
+
+}
