@@ -11,16 +11,15 @@ Here an example:
 ### Architecture
 
 3 Layers:
-* DB
-* GUI
-* Model
-
+* SQLite
+* Django Models (Connected to SQLite)
+* Business Layer (Users/Admin View)
 
 ### Modules
 
-* Login
-* Create
-* Edit / Delete
+* Dashbord
+* List Restaurants
+* Configure Restaurants (Add/Delete/Update)
 * Search
 
 ### Tasks
@@ -31,8 +30,6 @@ Here an example:
 * Testing
 
 This is just an example, your tasks should be more detailed.
-
-
 
 ## Gantt Chart
 
