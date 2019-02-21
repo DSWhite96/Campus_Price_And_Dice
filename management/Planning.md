@@ -46,7 +46,7 @@ Complete this table one row for each project. You should list at least one proje
 
 | Project name with URL        | List of Features                | Technology                                 | Requirements          | Researcher                                 |
 |------------------------------|---------------------------------|--------------------------------------------|-----------------------|--------------------------------------------|
-| [Project name 1](http://URL) | feature 1, feature 2, feature 3 | modules, architectures, frameworks, etc... | OS, modules, versions | Access ID of student who found this source |
+| [ajax-django-CRUD](https://github.com/nithin-vijayan/ajax-django-CRUDL) | Add, modify, and delete books | One page, to manage the list of books. Uses Django and AJAX. Web Application | Web-App, runs on all modern browsers. | fv6124 |
 | [Project name 2](http://URL) | feature 1, feature 2, feature 3 | modules, architectures, frameworks, etc... | OS, modules, versions | Access ID of student who found this source |
 | [Project name 3](http://URL) | feature 1, feature 2, feature 3 | modules, architectures, frameworks, etc... | OS, modules, versions | Access ID of student who found this source |
 | [Project name 4](http://URL) | feature 1, feature 2, feature 3 | modules, architectures, frameworks, etc... | OS, modules, versions | Access ID of student who found this source |
