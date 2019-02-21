@@ -4,8 +4,6 @@ Include this Markdown file in the "Management" folder of your git repository and
 
 ## List of tasks and high level modules
 
-Based on your project design and prototype, make a list of the modules and tasks to do.
-
 Here an example:
 
 ### Architecture
@@ -18,16 +16,19 @@ Here an example:
 ### Modules
 
 * Dashbord
-* List Restaurants
+* List of Restaurants
+* Restaurant Detail view
+* List of Users
 * Configure Restaurants (Add/Delete/Update)
 * Search
 
 ### Tasks
 
-* Design OOP Structural Model
-* Test technologies
-* Development
-* Testing
+* Initialize source directory (using Django CLI)
+* Create a project template using Marvel, and create HTML and CSS templates modeled after it
+* Create the project's primary models: Restaurant, Item, and User
+* Create the project's primary views: Dashboard, List of Restaurants, Restaurant Detail, 
+    List of Users, Configure)
 
 This is just an example, your tasks should be more detailed.
 
