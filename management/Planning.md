@@ -1,10 +1,6 @@
 # Project Planning Document
 
-Include this Markdown file in the "Management" folder of your git repository and edit it accordingly.
-
 ## List of tasks and high level modules
-
-Here an example:
 
 ### Architecture
 
@@ -24,24 +20,20 @@ Here an example:
 
 ### Tasks
 
+Completing the following tasks will allow us to begin fulfilling our application's requirements.
+
 * Initialize source directory (using Django CLI)
 * Create a project template using Marvel, and create HTML and CSS templates modeled after it
 * Create the project's primary models: Restaurant, Item, and User
 * Create the project's primary views: Dashboard, List of Restaurants, Restaurant Detail, 
     List of Users, Configure)
 
-This is just an example, your tasks should be more detailed.
 
 ## Gantt Chart
 
-Assign concrete tasks to each team member and plan your time using a Gantt Chart.
+Gannt Chart is available in the following directory: "management/Gannt Chart.xlsx"
 
 ## Research state of the art projects
-
-Go online and search for open source projects written in Python that do what your team want to do.
-
-
-Complete this table one row for each project. You should list at least one project for each team member (i.e. you should research at four different projects if your team has four team members)
 
 
 | Project name with URL        | List of Features                | Technology                                 | Requirements          | Researcher                                 |
@@ -52,10 +44,5 @@ Complete this table one row for each project. You should list at least one proje
 | [ZODB](https://github.com/zopefoundation/ZODB) | A native object database for Python. Providing no seam between code and database, supporting graphs without joins. | ACID transactions with snapshot isolation, NoSQL databases, BTree support | Python 3.7, pypi v5.5.1 | cq7409 |
 | [Django CRUD Example Apps](https://github.com/rayed/django_crud) | A Django project that demonstrates CRUD functionality using 3 small applications | Python 3, Django 2 | version 1.8 | gf6643 |
 | [School Library Database Application](https://github.com/itskpalusa/School-Library-Database-Application) | A school library database implemented with python and sqlite| Python 3, sqlite 3| version 1.0 | gf6643 |
-| [Project name 4](http://URL) | feature 1, feature 2, feature 3 | modules, architectures, frameworks, etc... | OS, modules, versions | Access ID of student who found this source |
-| [Project name 4](http://URL) | feature 1, feature 2, feature 3 | modules, architectures, frameworks, etc... | OS, modules, versions | Access ID of student who found this source |
 
-If you have difficulties finding projects similar to your project, search for different projects
-but related (similar games, CRUD projects for different business, data analysis for different data, etc... ). You can also search for projects written in another language that you master.
 
-[This website can help you to edit Markdown tables](https://www.tablesgenerator.com/markdown_tables#)
