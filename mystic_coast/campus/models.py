@@ -19,7 +19,7 @@ class Item(models.Model):
 class User(models.Model):
     username = models.CharField(max_length=200)
     password = models.CharField(max_length=200)
-    email = models.CharField(max_lenth=200)
+    email = models.CharField(max_length=200)
     gender = models.CharField(max_length=20)
     age = models.IntegerField(default=0)
     is_admin = models.BooleanField()
