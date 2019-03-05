@@ -2,7 +2,33 @@
     navbar.css
 */
 
+nav.navbar {
+    padding: 0rem;
+    height: 3rem;
+}
+
 nav.navbar-light-green {
     background-color: #0FD88E;
 }
+
+li.nav-item a.nav-link {
+    display: block;
+    height: 3rem;
+    padding-top: 0.85rem;
+
+}
+
+li.nav-item a.nav-link:hover {
+    background-color: #09BD8D;
+}
+
+li.nav-item a.nav-link:active {
+    background-color: #09BD8D;
+}
+
+ul.navbar-nav {
+   align-content: center;
+}
+
+
 
