@@ -4,7 +4,7 @@
 
 nav.navbar {
     padding: 0rem;
-    height: 3rem;
+    height: 4rem;
 }
 
 nav.navbar-light-green {
@@ -13,20 +13,13 @@ nav.navbar-light-green {
 
 li.nav-item a.nav-link {
     display: block;
-    height: 3rem;
-    padding-top: 0.85rem;
+    height: 4rem;
+    padding-top: 1.3rem;
+    font-size: 1.2rem;
 }
 
 li.nav-item a.nav-link:hover {
     background-color: #09BD8D;
-}
-
-li.nav-item a.nav-link:active {
-    background-color: #09BD8D;
-}
-
-ul.navbar-nav {
-   align-content: center;
 }
 
 
