@@ -12,6 +12,7 @@ class Restaurant(models.Model):
         'friday': models.CharField(max_length=20)
     }
 
+
 class Item(models.Model):
     price = models.FloatField(default=0)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
