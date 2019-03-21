@@ -24,5 +24,5 @@ class User(models.Model):
     gender = models.CharField(max_length=20)
     age = models.IntegerField(default=0)
     is_admin = models.BooleanField()
-
+    favorite_restaurants = models.ManyToManyField(Restaurant)
     

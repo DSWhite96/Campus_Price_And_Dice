@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Restaurant, Item
 
 def index(request):
     context = {'default_data': ''}
@@ -15,7 +16,7 @@ def compare_restaurants(request):
 
 def add_restaurant(request):
     context = {'default_data': ''}
-    return render(request, 'campus/add-restaurant.html', context)
+    pass
 
 def restaurant_detail(request, restaurant_id):
     try: 
@@ -24,3 +25,11 @@ def restaurant_detail(request, restaurant_id):
         raise Http404("Restaurant does not exist")
 
     return render(request, 'campus/restaurant-detail.html', {'restaurant': restaurant})
+
+def add_restaurant_page(request):
+    return render(request, 'campus/add-restaurant.html', {})
+
+
+
+
+

@@ -1,156 +1,96 @@
-<!DOCTYPE html>
-<html>
-    <head>
-       <!-- {% load static %} -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "./base.html" %}
+{% block title %} Add a Restaurant {% endblock %}
+{% block  configure_dropdown_link %}
+<li class="nav-item dropdown active">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Configure
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <a class="dropdown-item" href="{% url 'campus:add_restaurant' %}">Create</a>
+    <a class="dropdown-item" href="#">Modify</a>
+</li>
+{% endblock %}
+
+{% block body %}
 
 
-        <link 
-            rel="stylesheet" 
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
-            crossorigin="anonymous">
-
-        <link rel="stylesheet" type="text/css" href="{% static 'campus/style.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'campus/header.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'campus/navbar.css' %}">
-
-        <title>Campus Price and Dice</title>
-    </head>
-    <body>
-        <div class="header-dark">
-            <div class="header-text">
-                Price and Dice
+<div class="container content-top">
+    <form action = "{% url 'campus:add_restaurant' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+                <label for = "restaurantName">Name</label>
+                <input type="text" class="form-control" id="restaurantName" value="{{ restaurant.name }}">
+                <small class="text-muted">Enter your restaurant's name</small>
             </div>
-
         </div>
-
-
-        <nav class="navbar navbar-expand-lg navbar-light navbar-light-green">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link active" href="#">Dashboard<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Restaurants</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Compare</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Configure
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Create</a>
-                        <a class="dropdown-item" href="#">Modify</a>
-                    </li>
-                </ul>
-                <!--
-                <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>-->
+        <br>
+        <div class="row pb-2">
+            <div class="col-lg-6">
+                Hours of Operation
             </div>
-        </nav>
-
-
-        <div class="container content-top">
-            <form action = "{% url 'campus:add_restaurant' %}" method="POST">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-lg-6">
-                        <label for = "restaurantName">Name</label>
-                        <input type="text" class="form-control" id="restaurantName" value="{{ restaurant.name }}">
-                        <small class="text-muted">Enter your restaurant's name</small>
-                    </div>
-                </div>
-                <br>
-                <div class="row pb-2">
-                    <div class="col-lg-6">
-                        Hours of Operation
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <table class="table">
-                            <tr>
-                                <td>Sunday:</td>
-                                <td><input type="text" 
-                                    class="form-control" 
-                                    value="{{ restaurant.hours_of_operation }}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Monday:</td>
-                                <td><input type="text" 
-                                    class="form-control" 
-                                    value="{{ restaurant.hours_of_operation }}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tuesday:</td>
-                                <td><input type="text" 
-                                    class="form-control" 
-                                    value="{{ restaurant.hours_of_operation }}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Wednesday:</td>
-                                <td><input type="text" 
-                                    class="form-control" 
-                                    value="{{ restaurant.hours_of_operation }}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Thursday:</td>
-                                <td><input type="text" 
-                                    class="form-control" 
-                                    value="{{ restaurant.hours_of_operation }}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Friday:</td>
-                                <td><input type="text" 
-                                    class="form-control" 
-                                    value="{{ restaurant.hours_of_operation }}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Saturday:</td>
-                                <td><input type="text" 
-                                    class="form-control" 
-                                    value="{{ restaurant.hours_of_operation }}">
-                                </td>
-                            </tr>
-
-                        </table>
-                    </div>
-                </div>
-            </form>
         </div>
-       
+        <div class="row">
+            <div class="col-lg-6">
+                <table class="table">
+                    <tr>
+                        <td>Sunday:</td>
+                        <td><input type="text" 
+                            class="form-control" 
+                            value="{{ restaurant.hours_of_operation }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Monday:</td>
+                        <td><input type="text" 
+                            class="form-control" 
+                            value="{{ restaurant.hours_of_operation }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday:</td>
+                        <td><input type="text" 
+                            class="form-control" 
+                            value="{{ restaurant.hours_of_operation }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday:</td>
+                        <td><input type="text" 
+                            class="form-control" 
+                            value="{{ restaurant.hours_of_operation }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Thursday:</td>
+                        <td><input type="text" 
+                            class="form-control" 
+                            value="{{ restaurant.hours_of_operation }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Friday:</td>
+                        <td><input type="text" 
+                            class="form-control" 
+                            value="{{ restaurant.hours_of_operation }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Saturday:</td>
+                        <td><input type="text" 
+                            class="form-control" 
+                            value="{{ restaurant.hours_of_operation }}">
+                        </td>
+                    </tr>
 
-        <script 
-            src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
-            crossorigin="anonymous">
-        </script>
-        <script 
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
-            crossorigin="anonymous">
-        </script>
-        <script 
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
-            crossorigin="anonymous">
-        </script>
-    </body>
-</html>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
+
+
+
