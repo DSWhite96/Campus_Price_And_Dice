@@ -7,5 +7,37 @@
 {% endblock%}
 
 {% block body %}
+<div class="container content-top">
+     <div class="row">
+          <div class="col-lg-9">
+               <table class="table table-responsive">
+                    <thead>
+                         <tr>
+                              <th>Name</th>
+                              <th>Location</th>
+                              <th>Average Price</th>
+                              <th>Cheapest Item</th>
+                              <th>Most-Expensive Item</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                         {% for restaurant in restaurant_list %}
+                         <tr>
+                              <td>{{restaurant.name}}</td>
+                              <td>{{restaurant.location}}</td>
+                              <td>$10.00</td>
+                              <td>Crackers</td>
+                              <td>Ravioli</td>
+                         </tr>
+                         {% endfor %}
+                    </tbody>
+               </table>
+          </div>
+     </div>
+</div>
+
+
+
+
 
 {% endblock %}

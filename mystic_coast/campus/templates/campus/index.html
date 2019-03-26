@@ -10,16 +10,21 @@
 
 <div class="container content-top">
     <h4>Your Favorite Restaurants</h4>
+    <br>
     <div class="row">
-        <div class="col-lg-6">
-            {{ user.username }}
-            <br>
-            {% for restaurant in user.favorite_restaurant_list.all %}
-                {{restaurant.name}}
-            {% endfor %}
-            
+            <div class="col-lg-6">
+                <ul class="list-unstyled">
+                    {% for restaurant in user.favorite_restaurant_list.all %}
+                        <li>{{restaurant.name}}</li>
+                    {% endfor %}
+                </ul>
+                
+             
+                
+            </div>
         </div>
-    </div>
+  
+  
 </div>
 
 {% endblock %}

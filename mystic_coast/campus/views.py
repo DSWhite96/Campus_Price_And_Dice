@@ -9,7 +9,8 @@ def index(request):
     return render(request, 'campus/index.html', context)
 
 def restaurant_list(request):
-    context = {'default_data': ''}
+    restaurant_list = Restaurant.objects.all()
+    context = {'restaurant_list': restaurant_list}
     return render(request, 'campus/restaurant-list.html', context)
 
 def compare_restaurants(request):
