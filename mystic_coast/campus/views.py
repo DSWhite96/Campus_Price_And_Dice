@@ -29,6 +29,17 @@ def restaurant_detail(request, restaurant_id):
 
     return render(request, 'campus/restaurant-detail.html', {'restaurant': restaurant})
 
+#3/26
+def add_restaurant_form_submission(request):
+    print("Hello, the form has been submitted.")
+
+    restaurant_name = request.POST["restaurant.name"]
+    restaurant_location = request.POST["restaurant.location"]
+
+    restaurant_reference = Restaurant(restaurant_name=restaurant_name, restaurant_location=restaurant_location)
+    restaurant_reference.save()
+    return render(request,'campus/add-restaurant.html')
+
 def add_restaurant_page(request):
     return render(request, 'campus/add-restaurant.html', {})
 
