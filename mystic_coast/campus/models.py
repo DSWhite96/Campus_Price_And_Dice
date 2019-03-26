@@ -12,73 +12,64 @@ class Restaurant(models.Model):
         'thursday': models.CharField(max_length=20),
         'friday': models.CharField(max_length=20)
     }
-    
-    '''
-
-        DERRICK:
-
-        Hey Derrick, thanks for the work! There is a slight correction that 
-        should be made, but it won't require changing much of your code. 
-        (Just some slight additions)
-        
-        Replace the initialization of the 'items' list with the commented
-        code to the right of it. This creates a list-type object called a 
-        'ManyToManyField'. Think of it as a data type mapped to the database.
-
-        
-        And then before accessing each item of the list, follow the steps in the 
-        comment block below! 
-
-    '''
-
     #initial null list of items 
-    items = [] # DERRICK: items = models.ManyToManyField(Item)
+    items = models.ManyToManyField(Item) # WASSIM: I get an error because Item is called before it has been assigned
 
-    '''
-        DERRICK:
-
-        To create and access an list from a ManyToManyField, you'll do the following:
-            my_list = items.all() #This returns an iterable object of all items
-            for item in my_list: 
-                etc.
-    '''
-
+    #returns the average price of an item at a restaruant 
     def get_average_price(self, items):
-        num_items =  0
-        total_price = 0
-        for i in items:
-            num_items += 1
-            total_price += i.price
-        return float(total_price / num_items)
+        #creates iterable list of items
+        items_list = items.all()
+        if not items_list:
+            #case for empty list of items
+            return 'There are no items at this restaurant'
+        else:
+            num_items =  0
+            total_price = 0
+            #obtains iterable list of items
+            for i in items_list:
+                num_items += 1
+                total_price += i.price
+            return float(total_price / num_items)
 
     def get_min_price(self, items):
-        if not items:
-            return 'There are no items at this restaurant'#case for empty list of items
+        #obtains iterable list of items
+        items_list = items.all()
+        if not items_list:
+            #case for empty list of items
+            return 'There are no items at this restaurant'
         else:
-            min_price = items[0].price
-            for i in items:
+            min_price = items_list[0].price
+            for i in items_list:
                 if i.price < min_price:
                     min_price = i.price
             return min_price
 
     def get_max_price(self, items):
-        if not items:
-            return 'There are no items at this restaurant' #case for empty list of items
+        #obtains iterable list of items
+        items_list = items.all()
+        if not items_list:
+            #case for empty list of items
+            return 'There are no items at this restaurant' 
         else:
-            max_price = items[0].price
-            for i in items:
+            max_price = items_list[0].price
+            for i in items_list:
                 if i.price > max_price:
                     max_price = i.price
             return max_price
 
     def get_median_price(self, items):
-        if not items:
-            return 'There are no items at the restaurant' #case for empty list of items
+        #obtains iterable list of items
+        items_list = items.all()
+        if not items_list:
+            #case for empty list of items
+            return 'There are no items at the restaurant' 
         else:
-            prices = [] #creates list of item prices
-            for i in items:
+            #creates list of item prices
+            prices = [] 
+            for i in items_list:
                 prices.append(i.price)
-            prices.sort()#sorts list of items
+            #sorts list of items
+            prices.sort()
             num_items = len(prices)
             index = int(num_items / 2)
             return prices[index]
