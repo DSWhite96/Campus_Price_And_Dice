@@ -5,3 +5,9 @@
 .content-top {
     margin-top: 3rem;
 }
+
+.textbox-large {
+    width: 70%;
+    height: 3rem;
+    font-size: 2rem;
+}

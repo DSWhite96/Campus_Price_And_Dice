@@ -32,7 +32,7 @@ class Restaurant(models.Model):
     '''
 
     #initial null list of items 
-    items = [] # DERRICK: items = models.ManyToManyField(Item)
+    items = models.ManyToManyField(Item)
 
     '''
         DERRICK:
