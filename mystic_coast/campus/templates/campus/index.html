@@ -12,7 +12,12 @@
     <h4>Your Favorite Restaurants</h4>
     <div class="row">
         <div class="col-lg-6">
-
+            {{ user.username }}
+            <br>
+            {% for restaurant in user.favorite_restaurant_list.all %}
+                {{restaurant.name}}
+            {% endfor %}
+            
         </div>
     </div>
 </div>

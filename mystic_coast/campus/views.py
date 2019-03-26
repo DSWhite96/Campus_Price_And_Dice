@@ -1,9 +1,11 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .models import Restaurant, Item
+from .models import Restaurant, Item, User
 
 def index(request):
-    context = {'default_data': ''}
+    current_user = User.objects.get(username='root')
+    context = {'user': current_user}
+
     return render(request, 'campus/index.html', context)
 
 def restaurant_list(request):
@@ -29,6 +31,21 @@ def restaurant_detail(request, restaurant_id):
 def add_restaurant_page(request):
     return render(request, 'campus/add-restaurant.html', {})
 
+def add_favorite_restaurant(request, restaurant_id):
+    try:
+        restaurant = Restaurant.objects.get(pk=restaurant_id)
+
+        #'root' to be replaced by session username
+        current_user = User.objects.get(username='root') 
+        current_user.add_favorite_restaurant(restaurant)
+        current_user.save()
+
+    except Restaurant.DoesNotExist:
+        raise Http404("Restaurant does not exist")
+    
+
+
+    return HttpResponseRedirect(request.path_info)
 
 
 
