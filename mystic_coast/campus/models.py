@@ -1,4 +1,5 @@
 from django.db import models
+import logging
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=200)
@@ -11,8 +12,37 @@ class Restaurant(models.Model):
         'thursday': models.CharField(max_length=20),
         'friday': models.CharField(max_length=20)
     }
+    
+    '''
+
+        DERRICK:
+
+        Hey Derrick, thanks for the work! There is a slight correction that 
+        should be made, but it won't require changing much of your code. 
+        (Just some slight additions)
+        
+        Replace the initialization of the 'items' list with the commented
+        code to the right of it. This creates a list-type object called a 
+        'ManyToManyField'. Think of it as a data type mapped to the database.
+
+        
+        And then before accessing each item of the list, follow the steps in the 
+        comment block below! 
+
+    '''
+
     #initial null list of items 
-    items = []
+    items = [] # DERRICK: items = models.ManyToManyField(Item)
+
+    '''
+        DERRICK:
+
+        To create and access an list from a ManyToManyField, you'll do the following:
+            my_list = items.all() #This returns an iterable object of all items
+            for item in my_list: 
+                etc.
+    '''
+
     def get_average_price(self, items):
         num_items =  0
         total_price = 0
@@ -54,7 +84,6 @@ class Restaurant(models.Model):
             return prices[index]
 
 
-
 class Item(models.Model):
     price = models.FloatField(default=0)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
@@ -70,4 +99,15 @@ class User(models.Model):
     
     def add_favorite_restaurant(self, restaurant):
         self.favorite_restaurant_list.add(restaurant)
-        
+
+    '''
+    
+    DERRICK: For Reference on how to create an iterable 
+    from a ManyToManyField
+
+    '''
+    def test(self):
+        my_list = self.favorite_restaurant_list.all()
+        print('Restaurant Name: %s' % my_list[0].name)
+
+
