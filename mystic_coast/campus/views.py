@@ -17,10 +17,6 @@ def compare_restaurants(request):
     context = {'default_data': ''}
     return render(request, 'campus/compare-restaurants.html', context)
 
-def add_restaurant(request):
-    context = {'default_data': ''}
-    pass
-
 def restaurant_detail(request, restaurant_id):
     try: 
         restaurant = Restaurant.objects.get(pk=restaurant_id)
@@ -31,14 +27,15 @@ def restaurant_detail(request, restaurant_id):
 
 #3/26
 def add_restaurant_form_submission(request):
-    print("Hello, the form has been submitted.")
+   
+    restaurant_name = request.POST.get('restaurant_name', False)
+    restaurant_location = request.POST.get('restaurant_location', False)
 
-    restaurant_name = request.POST["restaurant.name"]
-    restaurant_location = request.POST["restaurant.location"]
-
-    restaurant_reference = Restaurant(restaurant_name=restaurant_name, restaurant_location=restaurant_location)
+    restaurant_reference = Restaurant(name=restaurant_name, location=restaurant_location)
     restaurant_reference.save()
-    return render(request,'campus/add-restaurant.html')
+
+    return render(request, 'campus/add-restaurant.html', {})
+
 
 def add_restaurant_page(request):
     return render(request, 'campus/add-restaurant.html', {})
@@ -55,8 +52,6 @@ def add_favorite_restaurant(request, restaurant_id):
     except Restaurant.DoesNotExist:
         raise Http404("Restaurant does not exist")
     
-
-
     return HttpResponseRedirect(request.path_info)
 
 

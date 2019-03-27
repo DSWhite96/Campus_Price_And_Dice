@@ -8,7 +8,6 @@
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
     <a class="dropdown-item" href="{% url 'campus:add_restaurant' %}">Create</a>
     <a class="dropdown-item" href="#">Modify</a>
-    <a class="dropdown-item" href="{% url 'campus:add_restaurant_form_submission' %}"">Execute</a>
 </li>
 {% endblock %}
 
@@ -16,13 +15,30 @@
 
 
 <div class="container content-top">
-    <form action = "{% url 'campus:add_restaurant' %}" method="POST">
+    <form action = "{% url 'campus:add_restaurant_form_submission' %}" method="POST">
         {% csrf_token %}
         <div class="row">
             <div class="col-lg-6">
-                <label for = "restaurantName">Name</label>
-                <input type="text" class="form-control" id="restaurantName" value="{{ restaurant.name }}">
+                <label for = "restaurant_name">Name</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="restaurant_name" 
+                    name="restaurant_name">
                 <small class="text-muted">Enter your restaurant's name</small>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+                <label for = "restaurant_location">Location</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="restaurant_location" 
+                    name="restaurant_location">
+                
+                <small class="text-muted">Ex. 123 Main St, New York, NY</small>
             </div>
         </div>
         <br>
@@ -85,6 +101,13 @@
                     </tr>
 
                 </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <input type="submit"
+                class="btn btn-outline-success" value = "Create">
+                 
             </div>
         </div>
     </form>
