@@ -14,5 +14,30 @@
 .textbox-large {
     width: 70%;
     height: 3rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
+
+.round-field-2 {
+    border-radius: 3rem;
+}
+
+.round-field-1 {
+    border-radius: 1rem;
+}
+
+.wide-button {
+    width: 13rem;
+}
+
+.aligned-input {
+    display: inline-block !important;
+}
+
+.label-right {
+    padding-left: 10.2rem;
+}
+
+/*
+.float-right should be de-activated below a 
+certain width
+*/

@@ -17,6 +17,17 @@ def compare_restaurants(request):
     context = {'default_data': ''}
     return render(request, 'campus/compare-restaurants.html', context)
 
+def compare_restaurants_action(request):
+    first_restaurant = None
+    second_restaurant = None
+
+    context = {
+        'first_restaurant': first_restaurant,
+        'second_restaurant': second_restaurant
+    }
+
+    return render(request, 'campus/compare-restaurants.html', context)
+
 def restaurant_detail(request, restaurant_id):
     try: 
         restaurant = Restaurant.objects.get(pk=restaurant_id)

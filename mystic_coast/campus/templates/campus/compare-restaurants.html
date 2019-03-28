@@ -11,18 +11,40 @@
     <div class="text-center">
         <h3>Compare Restaurants</h3>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-6">
-            <label for = "left_restaurant">Restaurant 1</label>
-            <input type="text" class="form-control textbox-large" id = "left_restaurant" name="left_restaurant">
+    <form action = "{% url 'campus:compare_restaurants_action' %}" method="GET">
+        <div class="row content-top">
+            <div class="col-lg-6">
+                <!--<label for = "left_restaurant" class="lead">Restaurant 1</label>
+                <br>-->
+                <input type="text" 
+                class="form-control textbox-large round-field-1 float-left" 
+                id = "left_restaurant" name="left_restaurant" placeholder = "Restaurant 1">
+            </div>
+            <div class="col-lg-6">
+                <!-- <label for = "right_restaurant" class="lead label-right">Restaurant 2</label>
+                <br>-->
+                <input type="text" 
+                class="form-control textbox-large round-field-1 float-right" 
+                id = "right_restaurant" name="right_restaurant" placeholder="Restaurant 2">
+            </div>
         </div>
-        <div class="col-lg-6">
-            <label for = "right_restaurant">Restaurant 2</label>
-            <input type="text" class="form-control textbox-large" id = "right_restaurant" name="right_restaurant">
+        <div class="row content-top">
+            <div class="col-lg-12">
+                <div class="text-center">
+                    <input type="submit" 
+                    class="btn btn-lg wide-button btn-outline-success round-field-1" 
+                    value="Compare">
+                </div>
+            </div>
         </div>
+    </form>
+    {% if first_restaurant and second_restaurant %}
+    <div class="row content-top">
+        testing?
     </div>
+    {% endif %}
 </div>
+
 
 
 {% endblock %}
