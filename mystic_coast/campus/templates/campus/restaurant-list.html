@@ -18,6 +18,12 @@
                               <th>Average Price</th>
                               <th>Cheapest Item</th>
                               <th>Most-Expensive Item</th>
+
+                              <th>Average Price:<select class="form-control">
+                                   <option value="1">Cheapest</option>
+                                   <option value="2">Most Expensive</option>
+                               </select></th>
+
                          </tr>
                     </thead>
                     <tbody>
@@ -25,9 +31,9 @@
                          <tr>
                               <td>{{restaurant.name}}</td>
                               <td>{{restaurant.location}}</td>
-                              <td>$10.00</td>
-                              <td>Crackers</td>
-                              <td>Ravioli</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
                          </tr>
                          {% endfor %}
                     </tbody>
