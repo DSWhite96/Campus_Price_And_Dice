@@ -23,7 +23,7 @@ class Restaurant(models.Model):
     #returns the average price of an item at a restaruant 
     def get_average_price(self, items):
         #creates iterable list of items
-        items_list = items.all()
+        items_list = self.items.all()
         if not items_list:
             #case for empty list of items
             return 'There are no items at this restaurant'
@@ -38,7 +38,7 @@ class Restaurant(models.Model):
 
     def get_min_price(self, items):
         #obtains iterable list of items
-        items_list = items.all()
+        items_list = self.items.all()
         if not items_list:
             #case for empty list of items
             return 'There are no items at this restaurant'
@@ -51,7 +51,7 @@ class Restaurant(models.Model):
 
     def get_max_price(self, items):
         #obtains iterable list of items
-        items_list = items.all()
+        items_list = self.items.all()
         if not items_list:
             #case for empty list of items
             return 'There are no items at this restaurant' 

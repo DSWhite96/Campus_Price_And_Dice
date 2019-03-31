@@ -18,12 +18,28 @@ def compare_restaurants(request):
     return render(request, 'campus/compare-restaurants.html', context)
 
 def compare_restaurants_action(request):
-    first_restaurant = None
-    second_restaurant = None
+    name_error_list = []
+
+    first_restaurant_name = request.GET.get('first_restaurant')
+    second_restaurant_name = request.GET.get('second_restaurant')
+    
+    try:
+        first_restaurant = Restaurant.objects.get(name=first_restaurant_name)
+    except Restaurant.DoesNotExist:
+        first_restaurant = None
+        name_error_list.append(second_restaurant_name)
+
+    try:
+        second_restaurant = Restaurant.objects.get(name=second_restaurant_name)
+    except Restaurant.DoesNotExist:
+        second_restaurant = None
+        name_error_list.append(first_restaurant_name)
+        
 
     context = {
         'first_restaurant': first_restaurant,
-        'second_restaurant': second_restaurant
+        'second_restaurant': second_restaurant,
+        'name_error_list': name_error_list
     }
 
     return render(request, 'campus/compare-restaurants.html', context)

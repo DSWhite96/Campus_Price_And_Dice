@@ -18,14 +18,14 @@
                 <br>-->
                 <input type="text" 
                 class="form-control textbox-large round-field-1 float-left" 
-                id = "left_restaurant" name="left_restaurant" placeholder = "Restaurant 1">
+                id = "first_restaurant" name="first_restaurant" placeholder = "Restaurant 1">
             </div>
             <div class="col-lg-6">
                 <!-- <label for = "right_restaurant" class="lead label-right">Restaurant 2</label>
                 <br>-->
                 <input type="text" 
                 class="form-control textbox-large round-field-1 float-right" 
-                id = "right_restaurant" name="right_restaurant" placeholder="Restaurant 2">
+                id = "second_restaurant" name="second_restaurant" placeholder="Restaurant 2">
             </div>
         </div>
         <div class="row content-top">
@@ -38,10 +38,44 @@
             </div>
         </div>
     </form>
-    {% if first_restaurant and second_restaurant %}
-    <div class="row content-top">
-        testing?
-    </div>
+    {% if first_restaurant and second_restaurant or name_error_list  %}
+    
+        {% if name_error_list %}
+            <div class="row content-top">
+                <div class="col-lg-12">
+                    <small class="text-danger">
+                        Oops! 
+                        {% for name in name_error_list %}
+                            {% if forloop.counter == name_error_list.size %}    
+                            name
+                            {% else %}
+                            {{name}},
+                            {% endif %}
+                        {% endfor  %}
+                    </small>
+                </div>
+            </div>
+        {% else %}
+            <div class="row content-top">
+                <div class="col-lg-6 text-left">
+                   <h3>{{ first_restaurant.name }}</h3>
+                   <p class="lead">{{ first_restaurant.location }}</p>
+                   <p class="lead">{{ first_restaurant.get_average_price }}</p>
+                   <p class="lead">{{ first_restaurant.get_min_price }}</p>
+                   <p class="lead">{{ first_restaurant.get_max_price }}</p>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <h3>{{ second_restaurant.name }}</h3>
+                    <p class="lead">{{ second_restaurant.location }}</p>
+                    <p class="lead">{{ second_restaurant.get_average_price }}</p>
+                    <p class="lead">{{ second_restaurant.get_min_price }}</p>
+                    <p class="lead">{{ second_restaurant.get_max_price }}</p>
+                </div>
+            </div>
+
+        {%  endif %}
+
+  
     {% endif %}
 </div>
 
