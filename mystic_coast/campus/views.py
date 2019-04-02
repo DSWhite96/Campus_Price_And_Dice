@@ -81,6 +81,6 @@ def add_favorite_restaurant(request, restaurant_id):
     
     return HttpResponseRedirect(request.path_info)
 
-
-
-
+#4/2 Derrick
+def user_profile(request):
+    return render(request, 'user_profile.html')

@@ -59,6 +59,12 @@
                     </li>
                     {% endblock %}
 
+                    {% block user_profile_link %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'campus:user_profile' %}">Profile</a>
+                    </li>
+                    {% endblock %}
+
                 </ul>
                 <!--
                 <form class="form-inline my-2 my-lg-0">
