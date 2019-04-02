@@ -9,8 +9,17 @@
 {% block body %}
 <div class="container content-top">
      <div class="row">
-          <div class="col-lg-9">
-               <table class="table table-responsive">
+          <div class="col-lg-3">
+               <select class="form-control blue-input">
+                    <option value="1">Cheapest</option>
+                    <option value="2">Most Expensive</option>
+               </select>
+          </div>
+     </div>
+     <br>
+     <div class="row">
+          <div class="col-lg-12">
+               <table class="table table-sm table-hover table-responsive table-striped">
                     <thead>
                          <tr>
                               <th>Name</th>
@@ -18,12 +27,6 @@
                               <th>Average Price</th>
                               <th>Cheapest Item</th>
                               <th>Most-Expensive Item</th>
-
-                              <th>Average Price:<select class="form-control">
-                                   <option value="1">Cheapest</option>
-                                   <option value="2">Most Expensive</option>
-                               </select></th>
-
                          </tr>
                     </thead>
                     <tbody>
