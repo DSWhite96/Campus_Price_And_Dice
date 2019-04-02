@@ -9,5 +9,6 @@ urlpatterns = [
     path('restaurant_list/', views.restaurant_list, name='restaurant_list'),
     path('compare_restaurants/', views.compare_restaurants, name='compare_restaurants'),
     path('compare_restaurants_action/', views.compare_restaurants_action, name='compare_restaurants_action'),
-    path('restaurant_detail/><int:restaurant_id>/', views.restaurant_detail, name='restaurant_detail')
+    path('restaurant_detail/><int:restaurant_id>/', views.restaurant_detail, name='restaurant_detail'),
+    path('user_profile/', views.user_profile, name='user_profile' )
 ]
