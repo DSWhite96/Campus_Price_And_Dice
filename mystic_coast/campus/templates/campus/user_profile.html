@@ -1,0 +1,14 @@
+{% extends "./base.html" %}
+{% block title %} User Profile {% endblock %}
+{% block user_profile_link %}
+<li class="nav-item active">
+    <a class="nav-link active" href="{% url 'campus:user_profile' %}">Profile</a>
+</li>
+
+{% block body %}
+<div class="container content-top">
+    <div class="text-center">
+        <h3>Profile</h3>
+    </div>
+</div>
+{% end block %}
