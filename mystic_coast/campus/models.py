@@ -3,9 +3,8 @@ import logging
 
 class Item(models.Model):
     price = models.FloatField(default=0)
-    #restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-
-
+    name = models.CharField(max_length=50)
+  
 class Restaurant(models.Model):
     name = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
@@ -21,7 +20,7 @@ class Restaurant(models.Model):
     items = models.ManyToManyField(Item)
 
     #returns the average price of an item at a restaruant 
-    def get_average_price(self, items):
+    def get_average_price(self):
         #creates iterable list of items
         items_list = self.items.all()
         if not items_list:
@@ -36,7 +35,7 @@ class Restaurant(models.Model):
                 total_price += i.price
             return float(total_price / num_items)
 
-    def get_min_price(self, items):
+    def get_min_price(self):
         #obtains iterable list of items
         items_list = self.items.all()
         if not items_list:
@@ -49,7 +48,7 @@ class Restaurant(models.Model):
                     min_price = i.price
             return min_price
 
-    def get_max_price(self, items):
+    def get_max_price(self):
         #obtains iterable list of items
         items_list = self.items.all()
         if not items_list:
@@ -62,9 +61,9 @@ class Restaurant(models.Model):
                     max_price = i.price
             return max_price
 
-    def get_median_price(self, items):
+    def get_median_price(self):
         #obtains iterable list of items
-        items_list = items.all()
+        items_list = self.items.all()
         if not items_list:
             #case for empty list of items
             return 'There are no items at the restaurant' 
@@ -78,9 +77,6 @@ class Restaurant(models.Model):
             num_items = len(prices)
             index = int(num_items / 2)
             return prices[index]
-
-
-
 
 class User(models.Model):
     username = models.CharField(max_length=200)
