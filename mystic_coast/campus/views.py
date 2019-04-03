@@ -13,8 +13,11 @@ def restaurant_list(request):
     context = {'restaurant_list': restaurant_list}
     return render(request, 'campus/restaurant-list.html', context)
 
-def compare_restaurants(request):
-    context = {'default_data': ''}
+def compare_restaurants(request, context = None):
+    
+    if not context:
+        context = {'default_data': ''}
+
     return render(request, 'campus/compare-restaurants.html', context)
 
 def compare_restaurants_action(request):
@@ -41,7 +44,7 @@ def compare_restaurants_action(request):
         'second_restaurant': second_restaurant,
         'name_error_list': name_error_list
     }
-
+    
     return render(request, 'campus/compare-restaurants.html', context)
 
 def restaurant_detail(request, restaurant_id):
