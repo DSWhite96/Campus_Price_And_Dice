@@ -1,0 +1,18 @@
+{% extends "./base.html" %}
+{% block title %} Restaurant Detail {% endblock %}
+{% block restautant_detail_list}
+
+{% block body %}
+<div class="container content-top">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>{{restaurant.name}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <p class="lead">{{restaurant.location}}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

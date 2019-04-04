@@ -83,4 +83,4 @@ def add_favorite_restaurant(request, restaurant_id):
 
 #4/2 Derrick
 def user_profile(request):
-    return render(request, 'user_profile.html')
+    return render(request, 'campus/user_profile.html', {})

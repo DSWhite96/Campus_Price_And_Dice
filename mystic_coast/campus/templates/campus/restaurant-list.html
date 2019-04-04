@@ -29,9 +29,9 @@
                     <tbody>
                          {% for restaurant in restaurant_list %}
                          <tr>
-                              <td>{{restaurant.name}}</td>
+                              <td><a href="{% url 'restaurant_detail' restaurant.id %}">restaurant-detail.html}</a></td>
                               <td>{{restaurant.location}}</td>
-                              <td></td>
+                              <td>{{restaurant.get_average_price}}</td>
                               <td></td>
                               <td></td>
                          </tr>
