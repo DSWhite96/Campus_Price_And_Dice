@@ -3,12 +3,12 @@ import logging
 
 class Item(models.Model):
     price = models.FloatField(default=0)
-    #restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-
-
+    name = models.CharField(max_length=50)
+  
 class Restaurant(models.Model):
     name = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
+
     hours_of_operation = {
         'sunday': models.CharField(max_length=20),
         'monday': models.CharField(max_length=20),
@@ -17,70 +17,68 @@ class Restaurant(models.Model):
         'thursday': models.CharField(max_length=20),
         'friday': models.CharField(max_length=20)
     }
-    #initial null list of items 
-    items = models.ManyToManyField(Item)
+
+    #initial null list of item_list 
+    item_list = models.ManyToManyField(Item)
 
     #returns the average price of an item at a restaruant 
-    def get_average_price(self, items):
-        #creates iterable list of items
-        items_list = self.items.all()
-        if not items_list:
-            #case for empty list of items
-            return 'There are no items at this restaurant'
+    def get_average_price(self):
+        #creates iterable list of item_list
+        item_list = self.item_list.all()
+        if not item_list:
+            #case for empty list of item_list
+            return 'There are no item_list at this restaurant'
         else:
-            num_items =  0
+            num_item_list =  0
             total_price = 0
-            #obtains iterable list of items
-            for i in items_list:
-                num_items += 1
+            #obtains iterable list of item_list
+            for i in item_list:
+                num_item_list += 1
                 total_price += i.price
-            return float(total_price / num_items)
+            return float(total_price / num_item_list)
 
-    def get_min_price(self, items):
-        #obtains iterable list of items
-        items_list = self.items.all()
-        if not items_list:
-            #case for empty list of items
-            return 'There are no items at this restaurant'
+    def get_min_price(self):
+        #obtains iterable list of item_list
+        item_list = self.item_list.all()
+        if not item_list:
+            #case for empty list of item_list
+            return 'There are no item_list at this restaurant'
         else:
-            min_price = items_list[0].price
-            for i in items_list:
+            min_price = item_list[0].price
+            for i in item_list:
                 if i.price < min_price:
                     min_price = i.price
             return min_price
 
-    def get_max_price(self, items):
-        #obtains iterable list of items
-        items_list = self.items.all()
-        if not items_list:
-            #case for empty list of items
-            return 'There are no items at this restaurant' 
+    def get_max_price(self):
+        #obtains iterable list of item_list
+        item_list = self.item_list.all()
+        if not item_list:
+            #case for empty list of item_list
+            return 'There are no item_list at this restaurant' 
         else:
-            max_price = items_list[0].price
-            for i in items_list:
+            max_price = item_list[0].price
+            for i in item_list:
                 if i.price > max_price:
                     max_price = i.price
             return max_price
 
-    def get_median_price(self, items):
-        #obtains iterable list of items
-        items_list = items.all()
-        if not items_list:
-            #case for empty list of items
-            return 'There are no items at the restaurant' 
+    def get_median_price(self):
+        #obtains iterable list of item_list
+        item_list = self.item_list.all()
+        if not item_list:
+            #case for empty list of item_list
+            return 'There are no item_list at the restaurant' 
         else:
             #creates list of item prices
             prices = [] 
-            for i in items_list:
+            for i in item_list:
                 prices.append(i.price)
-            #sorts list of items
+            #sorts list of item_list
             prices.sort()
-            num_items = len(prices)
-            index = int(num_items / 2)
+            num_item_list = len(prices)
+            index = int(num_item_list / 2)
             return prices[index]
-
-
-
 
 class User(models.Model):
     username = models.CharField(max_length=200)
