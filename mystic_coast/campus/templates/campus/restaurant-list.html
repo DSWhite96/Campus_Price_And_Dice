@@ -37,8 +37,8 @@
                               <td><a href="{% url 'campus:restaurant_detail' restaurant.id %}">{{restaurant.name}}</a></td>
                               <td>{{restaurant.location}}</td>
                               <td>${{restaurant.get_average_price |floatformat:2}}</td>
-                              <td>${{restaurant.get_cheapest_item}}</td>
-                              <td>${{restaurant.get_most_expensive}}</td>
+                              <td>{{restaurant.get_cheapest_item}}</td>
+                              <td>{{restaurant.get_most_expensive}}</td>
                          </tr>
                          {% endfor %}
                     </tbody>
