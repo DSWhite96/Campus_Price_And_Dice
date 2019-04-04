@@ -32,7 +32,7 @@
                     <tbody>
                          {% for restaurant in restaurant_list %}
                          <tr>
-                              <td><a href="{% url 'restaurant_detail' restaurant.id %}">restaurant-detail.html}</a></td>
+                              <td><a href="{% url 'campus:restaurant_detail' restaurant.id %}">{{restaurant.name}}</a></td>
                               <td>{{restaurant.location}}</td>
                               <td>{{restaurant.get_average_price}}</td>
                               <td></td>
