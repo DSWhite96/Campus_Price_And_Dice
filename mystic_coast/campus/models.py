@@ -80,6 +80,32 @@ class Restaurant(models.Model):
             index = int(num_item_list / 2)
             return prices[index]
 
+    def get_cheapest_item(self):
+        item_list = self.item_list.all()
+        if not item_list:
+            return 'There are no meow in the item list'
+        else:
+            cheap_price = self.get_min_price()
+            cheap_item = None
+            for i in item_list:
+                if i.price == cheap_price:
+                    cheap_item = i.name
+                    break
+        return cheap_item
+
+    def get_most_expensive(self):
+        item_list = self.item_list.all()
+        if not item_list:
+            return 'Jokes on you, there ARE no items'
+        else:
+            high_price = self.get_max_price()
+            expensive_item = None
+            for i in item_list:
+                if i.price == high_price:
+                    expensive_item = i.name
+                    break
+        return expensive_item
+
 class User(models.Model):
     username = models.CharField(max_length=200)
     password = models.CharField(max_length=200)
