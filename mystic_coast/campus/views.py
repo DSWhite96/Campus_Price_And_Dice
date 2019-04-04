@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Restaurant, Item, User
+import json
 
 def index(request):
     current_user = User.objects.get(username='root')
@@ -61,14 +62,31 @@ def restaurant_detail(request, restaurant_id):
 
     return render(request, 'campus/restaurant-detail.html', {'restaurant': restaurant})
 
-#3/26
-def add_restaurant_form_submission(request):
-   
-    restaurant_name = request.POST.get('restaurant_name', False)
-    restaurant_location = request.POST.get('restaurant_location', False)
+'''
+    Method to add a restaurant to the database. Takes in a 
+    JSON-formatted string, parses it, and stores its individual
+    attributes into a restaruant and saves it
+'''
 
-    restaurant_reference = Restaurant(name=restaurant_name, location=restaurant_location)
-    restaurant_reference.save()
+def add_restaurant_action(request):
+    data = request.POST.get('serializedData', False)
+    data = json.loads(data)
+
+    name = data['restaurantName']
+    location = data['location']
+    phone_number = data['phoneNumber']
+    item_list_dict = data['itemList']
+
+    restaurant = Restaurant(name=name, location=location)
+    restaurant.save()
+
+    for item_index in item_list_dict:
+        item = item_list_dict[item_index]
+        item_name = item['name']
+        item_price = item['price']
+        item = Item(name=item_name, price=item_price)
+        item.save()
+        restaurant.item_list.add(item)
 
     return render(request, 'campus/add-restaurant.html', {})
 
