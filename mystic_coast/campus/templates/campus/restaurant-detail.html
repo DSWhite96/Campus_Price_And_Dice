@@ -34,5 +34,25 @@
                 <p class="lead">Median Price: ${{restaurant.get_average_price |floatformat:2}}</p>
             </div>
     </div>
+    <div class="row">
+            <div class="col-lg-12">
+                 <table class="table table-sm table-hover table-responsive table-striped">
+                      <thead>
+                           <tr>
+                                <th>Item</th>
+                                <th>Price</th>
+                           </tr>
+                      </thead>
+                      <tbody>
+                           {% for item in restaurant.item_list.all %}
+                           <tr>
+                                <td>{{item.name}}</td>
+                                <td>{{item.price}}</td>
+                           </tr>
+                           {% endfor %}
+                      </tbody>
+                 </table>
+            </div>
+       </div>
 </div>
 {% endblock %}
