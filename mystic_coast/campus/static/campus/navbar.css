@@ -1,6 +1,25 @@
 /*
     navbar.css
 */
+#preview .buttons .ok {
+    border: 1px solid #F5F5F5;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    font-size: 20px;
+
+}
+.ok:before {
+    content: "\f2b9";
+    display: inline-block;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0, 0);
+}
 
 nav.navbar {
     padding: 0rem;
