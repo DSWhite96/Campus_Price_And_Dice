@@ -13,6 +13,12 @@ def restaurant_list(request):
     context = {'restaurant_list': restaurant_list}
     return render(request, 'campus/restaurant-list.html', context)
 
+def average_restaurant_list(request):
+    #average_restaurant_list = Restaurant.objects.all()
+    #context = {'average_restaurant_list': average_restaurant_list}
+    print("test")
+    #return render(request, 'campus/restaurant-list.html', context)
+
 def compare_restaurants(request, context = None):
     
     if not context:
