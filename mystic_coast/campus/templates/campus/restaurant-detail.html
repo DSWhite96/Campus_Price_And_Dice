@@ -19,5 +19,20 @@
             <p class="lead">Average Price: ${{restaurant.get_average_price |floatformat:2}}</p>
         </div>
     </div>
+    <div class="row">
+            <div class="col-lg-6">
+                <p class="lead">Lowest Price: ${{restaurant.get_min_price |floatformat:2}}</p>
+            </div>
+    </div>
+    <div class="row">
+            <div class="col-lg-6">
+                <p class="lead">Highest Price: ${{restaurant.get_max_price |floatformat:2}}</p>
+            </div>
+    </div>
+    <div class="row">
+            <div class="col-lg-6">
+                <p class="lead">Median Price: ${{restaurant.get_average_price |floatformat:2}}</p>
+            </div>
+    </div>
 </div>
 {% endblock %}
