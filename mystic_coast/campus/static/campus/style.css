@@ -2,6 +2,9 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.map {
+    height: 425px;
+}
 
 .selector-for-some-widget {
     box-sizing: content-box;

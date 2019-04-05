@@ -1,6 +1,6 @@
 var app = new Vue({
-    el:'#app',
-    data:{
+	el:'#app',
+  data:{
 		message: 'testing',
 		restaurantName: "",
 		restaurantLocation: "",
@@ -9,12 +9,18 @@ var app = new Vue({
 		itemList: new Array(),
 		showFirstTab: true,
 		showSecondTab: false
-    },
+  },
 	methods:{
 		addItem : function () {
 			let name = this.itemName;
 			let price = this.itemPrice;
-			this.itemList.push();
+
+			let item = {
+				name: name,
+				price: price
+			};
+
+			this.itemList.push(item);
 		},
 		removeItem : function (index) {
 			this.itemList.splice(index, 1);

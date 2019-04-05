@@ -3,6 +3,7 @@
 {% block restautant_detail_list}
 
 {% block body %}
+  
 <div class="container content-top">
     <div class="row">
         <div class="col-lg-6">
@@ -35,24 +36,67 @@
             </div>
     </div>
     <div class="row">
-            <div class="col-lg-12">
-                 <table class="table table-sm table-hover table-responsive table-striped">
-                      <thead>
-                           <tr>
-                                <th>Item</th>
-                                <th>Price</th>
-                           </tr>
-                      </thead>
-                      <tbody>
-                           {% for item in restaurant.item_list.all %}
-                           <tr>
-                                <td>{{item.name}}</td>
-                                <td>${{item.price |floatformat:2}}</td>
-                           </tr>
-                           {% endfor %}
-                      </tbody>
-                 </table>
-            </div>
-       </div>
+        <div class="col-lg-12">
+                <table class="table table-sm table-hover table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in restaurant.item_list.all %}
+                        <tr>
+                            <td>{{item.name}}</td>
+                            <td>${{item.price |floatformat:2}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    </div>
+
+    <input type="hidden" id="location" value="{{ restaurant.location }}">
+    <div class="row">
+        <div class="col-lg-6">
+            <div id="map" class="map"></div>
+                
+        </div>
+    </div>
+
+    <script>
+            function initMap() {
+                var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: {lat: -34.397, lng: 150.644}
+                });
+                var geocoder = new google.maps.Geocoder();
+
+
+                geocodeAddress(geocoder, map);
+              
+            }
+      
+            function geocodeAddress(geocoder, resultsMap) {
+              var address = document.getElementById('location').value;
+              geocoder.geocode({'address': address}, function(results, status) {
+                if (status === 'OK') {
+                  resultsMap.setCenter(results[0].geometry.location);
+                  var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                  });
+                } else {
+                  alert('Geocode was not successful for the following reason: ' + status);
+                }
+              });
+            }
+    </script>
+      
+   
+    <script 
+        async defer 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnqYLdmY8QTO6Ua2bh4I9YLQlXFPudgdg&callback=initMap" type="text/javascript">
+    </script>   
 </div>
 {% endblock %}
