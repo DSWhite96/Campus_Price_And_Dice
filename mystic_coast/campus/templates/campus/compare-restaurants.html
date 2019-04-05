@@ -61,16 +61,16 @@
                 <div class="col-lg-6 text-left">
                    <h3>{{ first_restaurant.name }}</h3>
                    <p class="lead">{{ first_restaurant.location }}</p>
-                   <p class="lead">Average Price: ${{ first_restaurant.get_average_price }}</p>
-                   <p class="lead">Min Price: ${{ first_restaurant.get_min_price }}</p>
-                   <p class="lead">Max Price: ${{ first_restaurant.get_max_price }}</p>
+                   <p class="lead">Average Price: ${{ first_restaurant.get_average_price|floatformat:2 }}</p>
+                   <p class="lead">Min Price: ${{ first_restaurant.get_min_price|floatformat:2 }}</p>
+                   <p class="lead">Max Price: ${{ first_restaurant.get_max_price |floatformat:2}}</p>
                 </div>
                 <div class="col-lg-6 text-right">
                     <h3>{{ second_restaurant.name }}</h3>
                     <p class="lead">{{ second_restaurant.location }}</p>
-                    <p class="lead">Average Price: ${{ second_restaurant.get_average_price }}</p>
-                    <p class="lead">Min Price: ${{ second_restaurant.get_min_price }}</p>
-                    <p class="lead">Max Price: ${{ second_restaurant.get_max_price }}</p>
+                    <p class="lead">Average Price: ${{ second_restaurant.get_average_price|floatformat:2 }}</p>
+                    <p class="lead">Min Price: ${{ second_restaurant.get_min_price|floatformat:2 }}</p>
+                    <p class="lead">Max Price: ${{ second_restaurant.get_max_price|floatformat:2 }}</p>
                 </div>
             </div>
 

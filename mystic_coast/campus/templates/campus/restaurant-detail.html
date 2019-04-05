@@ -47,7 +47,7 @@
                            {% for item in restaurant.item_list.all %}
                            <tr>
                                 <td>{{item.name}}</td>
-                                <td>{{item.price}}</td>
+                                <td>${{item.price |floatformat:2}}</td>
                            </tr>
                            {% endfor %}
                       </tbody>
