@@ -1,17 +1,17 @@
 var app = new Vue({
 	el:'#app',
-  data:{
-		message: 'testing',
-		restaurantName: "",
-		restaurantLocation: "",
-		itemPrice: 0,
-		itemName: "",
-		itemList: new Array(),
-		showFirstTab: true,
-		showSecondTab: false
-  },
+	data:{
+			message: 'testing',
+			restaurantName: "",
+			restaurantLocation: "",
+			itemPrice: 0,
+			itemName: "",
+			itemList: new Array(),
+			showFirstTab: true,
+			showSecondTab: false
+	},
 	methods:{
-		addItem : function () {
+		addItem: function () {
 			let name = this.itemName;
 			let price = this.itemPrice;
 
@@ -22,29 +22,23 @@ var app = new Vue({
 
 			this.itemList.push(item);
 		},
-		removeItem : function (index) {
+		removeItem: function (index) {
 			this.itemList.splice(index, 1);
 		},
-		gotoFirst : function () {
+		gotoFirst: function () {
 			if (!this.showFirstTab)
 			{
 				this.showFirstTab = true;
 				this.showSecondTab = false;
 			}
 		},
-		gotoSecond : function () {
+		gotoSecond: function () {
 			if (!this.showSecondTab)
 			{
 				this.showSecondTab = true;
 				this.showFirstTab = false;
 			}
-		},
-		addRestaurantAction : function () {
-			
 		}
 	}
-
-//add_restaurant_action
-
-
+	//add_restaurant_action
 });
