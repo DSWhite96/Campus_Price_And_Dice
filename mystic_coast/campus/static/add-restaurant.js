@@ -1,4 +1,5 @@
 var app = new Vue({
+	delimiters: ['[[',']]'],
 	el:'#app',
 	data:{
 			message: 'testing',
@@ -25,14 +26,14 @@ var app = new Vue({
 		removeItem: function (index) {
 			this.itemList.splice(index, 1);
 		},
-		gotoFirst: function () {
+		goToFirst: function () {
 			if (!this.showFirstTab)
 			{
 				this.showFirstTab = true;
 				this.showSecondTab = false;
 			}
 		},
-		gotoSecond: function () {
+		goToSecond: function () {
 			if (!this.showSecondTab)
 			{
 				this.showSecondTab = true;

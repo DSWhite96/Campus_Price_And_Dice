@@ -20,9 +20,10 @@
 {% block body %}
 <div id="app">
 
-{% verbatim %}
-Test: {{message}}
-{% endverbatim %}
+
+Test: [[message]]
+ShowFirst: [[showFirstTab]]
+
     		
 
 
@@ -127,8 +128,7 @@ Test: {{message}}
         </div>
         <div class="row">
             <div class="col-lg-12 text-right">
-                <input type="submit"
-                class="btn btn-outline-success" value = "Next">
+                <button type="button" class="btn btn-outline-success" v-on:click="goToSecond">Next</button>
             </div>
         </div>
     </form>
