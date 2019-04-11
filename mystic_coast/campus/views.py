@@ -17,6 +17,7 @@ def restaurant_list(request):
 def delete_restaurant(request, restaurant_name):
     restaurant = Restaurant.objects.get(name=restaurant_name)
     restaurant.delete()
+    restaurant_list = Restaurant.objects.all()
     context = {'restaurant_list': restaurant_list}
     return render(request, 'campus/restaurant-list.html', context)
 
