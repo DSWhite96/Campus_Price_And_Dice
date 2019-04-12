@@ -14,12 +14,10 @@ def restaurant_list(request):
     context = {'restaurant_list': restaurant_list}
     return render(request, 'campus/restaurant-list.html', context)
 
-def delete_restaurant(request, restaurant_name):
-    restaurant = Restaurant.objects.get(name=restaurant_name)
+def delete_restaurant(request, restaurant_id):
+    restaurant = Restaurant.objects.get(id=restaurant_id)
     restaurant.delete()
-    restaurant_list = Restaurant.objects.all()
-    context = {'restaurant_list': restaurant_list}
-    return render(request, 'campus/restaurant-list.html', context)
+    return restaurant_list(request)
 
 def average_restaurant_list(request):
     #average_restaurant_list = Restaurant.objects.all()
