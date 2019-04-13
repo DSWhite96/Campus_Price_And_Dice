@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Restaurant, Item, User
+from .verification.add_restaruant import Verify
 import json
 
 def index(request):
@@ -76,12 +77,32 @@ def restaurant_detail(request, restaurant_id):
 def add_restaurant_action(request):
     data = request.POST.get('serializedData', False)
     data = json.loads(data)
+    invalid_form = False
+    error_message = ''
+    context = {}
 
     name = data['restaurantName']
     location = data['location']
     phone_number = data['phoneNumber']
+    hours_of_operation = data['hoursOfOperation']
     item_list_dict = data['itemList']
 
+    is_prelim_info_correct = Verify.preliminary_info(name, location, phone_number)
+
+    if not (is_prelim_info_correct == 'SUCCESS'):
+        invalid_form = True
+
+        if (is_prelim_info_correct == 'PHONE_NUMBER'):
+            error_message = "Your phone number is formatted incorrectly"
+        elif (is_prelim_info_correct == 'NAME_LENGTH'):
+            error_message = "Your name's length is too large or too small"
+        elif (is_prelim_info_correct == 'LOCATION_LENGTH'):
+            error_message = "Your location's length is too large or too small"
+        else:
+            error_message = "Something went wrong!"
+
+        context['error_message'] = error_message
+    
     restaurant = Restaurant(name=name, location=location)
     restaurant.save()
 
@@ -93,7 +114,10 @@ def add_restaurant_action(request):
         item.save()
         restaurant.item_list.add(item)
 
-    return render(request, 'campus/add-restaurant.html', {})
+    if invalid_form:
+        return render(request, 'campus/add-restaurant.html', context)
+    else:
+        return render(request, 'campus/add-restaurant.html', {})
 
 
 def add_restaurant_page(request):

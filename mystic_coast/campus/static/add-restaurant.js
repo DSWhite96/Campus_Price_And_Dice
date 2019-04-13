@@ -1,12 +1,14 @@
+import { hoursOfOperation } from './hours-of-operation.js';
+
 var app = new Vue({
 	delimiters: ['[[',']]'],
 	el:'#app',
 	data:{
-			message: 'testing',
 			restaurantName: "",
 			restaurantLocation: "",
-			itemPrice: 0,
+			hoursOfOperation: hoursOfOperation,
 			itemName: "",
+			itemPrice: 0,
 			itemList: new Array(),
 			showFirstTab: true,
 			showSecondTab: false
@@ -39,6 +41,12 @@ var app = new Vue({
 				this.showSecondTab = true;
 				this.showFirstTab = false;
 			}
+		},
+		submitData: function() {
+
+
+			
+
 		}
 	}
 	//add_restaurant_action

@@ -19,163 +19,149 @@
 
 {% block body %}
 <div id="app">
-
-
-Test: [[message]]
-ShowFirst: [[showFirstTab]]
-
-    		
-
-
-<div id="tab1" v-if="showFirstTab">
-<div class="container content-top">
-    <form action = "{% url 'campus:add_restaurant_action' %}" method="POST">
-        {% csrf_token %}
-        <h1><center>Restaurant Details</center></h1>
-        <div class="row">
-            <div class="col-lg-6">
-                <label for = "restaurant_name">Name</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="restaurant_name"
-                    name="restaurant_name">
-                <small class="text-muted">Enter your restaurant's name</small>
-            </div>
-            <div class="col-lg-6">
-                <label for = "restaurant_location">Location</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="restaurant_location"
-                    name="restaurant_location">
-
-                <small class="text-muted">Ex. 123 Main St, New York, NY</small>
-            </div>
-        </div>
-        <br>
-        <div class="row pb-2">
-            <div class="col-lg-6">
-                    <label for = "restaurant_location">Phone Number</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="phone_number"
-                        name="phone_number">
-            </div>
-        </div>
-        <div class="row pb-2">
-            <div class="col-lg-6">
-                Hours of Operation
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <table class="table">
-                    <tr>
-                        <td>Sunday:</td>
-                        <td><input type="text" 
+    <div id="tab1" v-if="showFirstTab">
+        <div class="container content-top">
+            <form action = "{% url 'campus:add_restaurant_action' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="page-header text-center">Create a Restaurant</p>
+                    </div>
+                </div>
+                <br>
+                <div class="row pb-2">
+                    <div class="col-lg-12">
+                        <p class="text-center subheading">Preliminary Info</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for = "restaurant_name">Name</label>
+                        <input type="text" class="form-control" id="restaurant_name" 
+                            name="restaurant_name" v-model='restaurantName'>
+                        <small class="text-muted">Enter your restaurant's name</small>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for = "restaurant_location">Location</label>
+                        <input type="text" class="form-control" id="restaurant_location" 
+                            name="restaurant_location" v-model='restaurantLocation'>
+                        <small class="text-muted">Ex. 123 Main St, New York, NY</small>
+                    </div>
+                </div>
+                <br>
+                <div class="row pb-2">
+                    <div class="col-lg-6">
+                        <label for = "restaurant_location">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_number" 
+                            name="phone_number" v-model='restaurantPhoneNumber'>
+                        <small class="text-muted">Written as (xxx) xxx-xxxx</small>
+                    </div>
+                </div>
+                <br>
+                <div class="row pb-2">
+                    <div class="col-lg-12">
+                        <p class="text-center subheading">Hours of Operation</p>
+                    </div>
+                </div>
+                <div class="row pb-2">
+                    <div class="col-lg-6">
+                        <label for='sunday'>Sunday</label>
+                        <input type='text' class="form-control" 
+                            name='sunday' id='sunday'
+                            v-model='hoursOfOperation.sunday'>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="monday">Monday</label>
+                        <input type="text" class="form-control" 
+                            name="monday" id="monday"
+                            v-model='hoursOfOperation.monday'>
+                    </div>
+                </div>
+                <div class="row pb-2">
+                    <div class="col-lg-6">
+                        <label for='tuesday'>Tuesday</label>
+                        <input type='text' class="form-control" 
+                            name='tuesday' id='tuesday'
+                            v-model='hoursOfOperation.tuesday'>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="wednesday">Wednesday</label>
+                        <input type="text" class="form-control" 
+                            name="wednesday" id="wednesday"
+                            v-model='hoursOfOperation.wednesday'>
+                    </div>
+                </div>
+                <div class="row pb-2">
+                    <div class="col-lg-6">
+                        <label for='thursday'>Thursday</label>
+                        <input type='text' 
                             class="form-control" 
-                            value="{{ restaurant.hours_of_operation }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Monday:</td>
-                        <td><input type="text" 
+                            name='thursday'
+                            id='thursday'>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="friday">Friday</label>
+                        <input type="text" 
                             class="form-control" 
-                            value="{{ restaurant.hours_of_operation }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Tuesday:</td>
-                        <td><input type="text" 
+                            name="friday"
+                            id="friday">
+                    </div>
+                </div>
+                <div class="row pb-2">
+                    <div class="col-lg-6">
+                        <label for='saturday'>Saturday</label>
+                        <input type='text' 
                             class="form-control" 
-                            value="{{ restaurant.hours_of_operation }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Wednesday:</td>
-                        <td><input type="text" 
-                            class="form-control" 
-                            value="{{ restaurant.hours_of_operation }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Thursday:</td>
-                        <td><input type="text" 
-                            class="form-control" 
-                            value="{{ restaurant.hours_of_operation }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Friday:</td>
-                        <td><input type="text" 
-                            class="form-control" 
-                            value="{{ restaurant.hours_of_operation }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Saturday:</td>
-                        <td><input type="text" 
-                            class="form-control" 
-                            value="{{ restaurant.hours_of_operation }}">
-                        </td>
-                    </tr>
+                            name='saturday'
+                            id='saturday'>
+                    </div>
+                </div>
 
-                </table>
-            </div>
+                <div class="row">
+                    <div class="col-lg-12 text-right">
+                        <button type="button" class="btn btn-link" v-on:click="goToSecond">Next -></button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="row">
-            <div class="col-lg-12 text-right">
-                <button type="button" class="btn btn-outline-success" v-on:click="goToSecond">Next</button>
-            </div>
-        </div>
-    </form>
-</div>
-</div>
+    </div>
 
-<div id="tab2" v-if="showSecondTab">
-    <div class="container content-top">
-    <form action = "{% url 'campus:add_restaurant_action' %}" method="POST">
-        {% csrf_token %}
-        <h1><center>List of Items</center></h1>
-        <div class="row">
-            <div class="col-lg-6">
-                <label for = "restaurant_name">Name</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="restaurant_name"
-                    name="restaurant_name">
-                <small class="text-muted">Enter your restaurant's name</small>
-            </div>
-            <div class="col-lg-6">
-                <label for = "restaurant_location">Price</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="restaurant_location"
-                    name="restaurant_location">
-            </div>
+    <div id="tab2" v-if="showSecondTab">
+        <div class="container content-top">
+            <form action = "{% url 'campus:add_restaurant_action' %}" method="POST">
+                {% csrf_token %}
+                <h1><center>List of Items</center></h1>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for = "item_name">Name</label>
+                        <input type="text" class="form-control"
+                            id="item_name" name="item_name">
+                        <small class="text-muted">Item name (e.g. Noodles)</small>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for = "item_price">Price</label>
+                        <input type="text" class="form-control"
+                            id="item_price" name="item_price">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6 text-left">
+                        <button type="button" class="btn btn-link" v-on:click="goToFirst"><- Previous</button>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <button type="button" class="btn btn-link" v-on:click="submitData">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-lg-6">
-                <input type="submit"
-                class="btn btn-outline-success" value = "Previous">
-            </div>
-            <div class="col-lg-6 text-right">
-                <input type="submit"
-                class="btn btn-outline-success" value = "Submit">
-            </div>
-        </div>
-    </form>
-</div>
-</div>
+    </div>
 </div>
 
-<script src="{% static 'add-restaurant.js' %}"></script>
+<br>
+<br>
+<script src="{% static 'hours-of-operation.js' %}" type='module'></script>
+<script src="{% static 'add-restaurant.js' %}" type='module'></script>
 {% endblock %}
 
 

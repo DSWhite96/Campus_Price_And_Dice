@@ -1,9 +1,18 @@
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .map {
     height: 425px;
+}
+
+.page-header {
+    font-size: 2rem;
+    font-weight: normal;
+}
+
+.subheading {
+    font-size: 1.2rem;
 }
 
 .selector-for-some-widget {
@@ -45,7 +54,3 @@ body {
     padding-left: 10.2rem;
 }
 
-/*
-.float-right should be de-activated below a 
-certain width
-*/
