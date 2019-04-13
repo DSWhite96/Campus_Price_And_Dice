@@ -13,7 +13,7 @@ class Verify():
     PHONE_NUMBER_FORMAT = "(\d{3}) \w{3}-\w{4}"
     LOCATION_FORMAT = "\w{1+} \w{1+} \w*, \w{1+}, \w{2}" #Subject to change
   
-    def preliminary_info(name, location, phone_number):
+    def preliminary_info(self, name, location, phone_number):
         name_length = len(name)
         location_length = len(location)
         
