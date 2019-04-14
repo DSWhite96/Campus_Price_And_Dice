@@ -6,6 +6,7 @@ var app = new Vue({
 	data:{
 			restaurantName: "",
 			restaurantLocation: "",
+			restaurantPhoneNumber: "",
 			hoursOfOperation: hoursOfOperation,
 			itemName: "",
 			itemPrice: 0,
@@ -42,11 +43,29 @@ var app = new Vue({
 				this.showFirstTab = false;
 			}
 		},
+		packageData: function() {
+			let packagedData = {
+				restaurantName: this.restaurantName,
+				restaurantLocation: this.restaurantLocation,
+				restaurantPhoneNumber: this.restaurantPhoneNumber,
+				hoursOfOperation: this.hoursOfOperation,
+				itemList: this.itemList
+			};
+
+			return JSON.stringify(packagedData);
+		},
 		submitData: function() {
+			let url = '/campus/add_restaurant_action';
+			let packagedData = this.packageData();
 
-
-			
-
+			fetch(url, {
+				method: 'POST',
+				body: packagedData
+			})
+			.then(response => {
+				return response.json();
+			})
+		
 		}
 	}
 	//add_restaurant_action
