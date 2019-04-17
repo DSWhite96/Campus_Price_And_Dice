@@ -27,7 +27,7 @@ class Restaurant(models.Model):
         item_list = self.item_list.all()
         if not item_list:
             #case for empty list of item_list
-            return 'There are no item_list at this restaurant'
+            return 'N/A'
         else:
             num_item_list =  0
             total_price = 0
@@ -42,7 +42,7 @@ class Restaurant(models.Model):
         item_list = self.item_list.all()
         if not item_list:
             #case for empty list of item_list
-            return 'There are no item_list at this restaurant'
+            return 'N/A'
         else:
             min_price = item_list[0].price
             for i in item_list:
@@ -55,7 +55,7 @@ class Restaurant(models.Model):
         item_list = self.item_list.all()
         if not item_list:
             #case for empty list of item_list
-            return 'There are no item_list at this restaurant' 
+            return 'N/A' 
         else:
             max_price = item_list[0].price
             for i in item_list:
@@ -68,7 +68,7 @@ class Restaurant(models.Model):
         item_list = self.item_list.all()
         if not item_list:
             #case for empty list of item_list
-            return 'There are no item_list at the restaurant' 
+            return 'N/A' 
         else:
             #creates list of item prices
             prices = [] 
@@ -83,7 +83,7 @@ class Restaurant(models.Model):
     def get_cheapest_item(self):
         item_list = self.item_list.all()
         if not item_list:
-            return 'There are no meow in the item list'
+            return 'N/A'
         else:
             cheap_price = self.get_min_price()
             cheap_item = None
@@ -96,7 +96,7 @@ class Restaurant(models.Model):
     def get_most_expensive(self):
         item_list = self.item_list.all()
         if not item_list:
-            return 'Jokes on you, there ARE no items'
+            return 'N/A'
         else:
             high_price = self.get_max_price()
             expensive_item = None

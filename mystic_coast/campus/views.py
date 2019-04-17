@@ -84,19 +84,16 @@ def restaurant_detail(request, restaurant_id):
 '''
 
 def add_restaurant_action(request):
-    data = request.POST.get('serializedData', False)
-    data = json.loads(data)
+    data = request.POST
     invalid_form = False
     error_message = ''
     context = {}
 
-    name = data['restaurantName']
-    location = data['location']
-    phone_number = data['phoneNumber']
-    hours_of_operation = data['hoursOfOperation']
-    item_list_dict = data['itemList']
-
-    is_prelim_info_correct = Verify.preliminary_info(name, location, phone_number)
+    name = data['restaurant_name']
+    location = data['restaurant_location']
+    phone_number = data['phone_number']
+    
+    '''is_prelim_info_correct = Verify.preliminary_info(name, location, phone_number)
 
     if not (is_prelim_info_correct == 'SUCCESS'):
         invalid_form = True
@@ -110,11 +107,12 @@ def add_restaurant_action(request):
         else:
             error_message = "Something went wrong!"
 
-        context['error_message'] = error_message
+        context['error_message'] = error_message'''
     
     restaurant = Restaurant(name=name, location=location)
     restaurant.save()
 
+    '''
     for item_index in item_list_dict:
         item = item_list_dict[item_index]
         item_name = item['name']
@@ -122,11 +120,12 @@ def add_restaurant_action(request):
         item = Item(name=item_name, price=item_price)
         item.save()
         restaurant.item_list.add(item)
+    '''
 
     if invalid_form:
-        return render(request, 'campus/add-restaurant.html', context)
-    else:
         return render(request, 'campus/add-restaurant.html', {})
+    else:
+        return render(request, 'campus/restaurant-detail.html', {'restaurant': restaurant})
 
 
 def add_restaurant_page(request):

@@ -26,7 +26,7 @@
                               <th>Name</th>
                               <th>Location</th>
                               <th>Average Price</th>
-                              <th>Cheapest Item</th>
+                              <th>Least-Expensive Item</th>
                               <th>Most-Expensive Item</th>
                          </tr>
                     </thead>
@@ -36,7 +36,15 @@
                               <td><a href="{% url 'campus:delete_restaurant' restaurant.id %}">&#10005;</a></td>
                               <td><a href="{% url 'campus:restaurant_detail' restaurant.id %}">{{restaurant.name}}</a></td>
                               <td>{{restaurant.location}}</td>
-                              <td>${{restaurant.get_average_price |floatformat:2}}</td>
+                              
+                              <td>
+                                   {% if restaurant.get_average_price != 'N/A' %}
+                                   ${{restaurant.get_average_price | floatformat:2}}
+                                   {% else %}
+                                   {{restaurant.get_average_price}}
+                                   {% endif %}
+
+                              </td>
                               <td>{{restaurant.get_cheapest_item}}</td>
                               <td>{{restaurant.get_most_expensive}}</td>
                          </tr>

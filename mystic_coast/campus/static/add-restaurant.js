@@ -55,18 +55,23 @@ var app = new Vue({
 			return JSON.stringify(packagedData);
 		},
 		submitData: function() {
-			let url = '/campus/add_restaurant_action';
+
+			let form = document.getElementById("restaurant_form");
+			let xHttp = new XMLHttpRequest();
+
+			xHttp.open('/campus/add_restaurant_action', true);
+
 			let packagedData = this.packageData();
 
-			fetch(url, {
-				method: 'POST',
-				body: packagedData
-			})
-			.then(response => {
-				return response.json();
-			})
-		
+			/*xHttp.onreadystatechange = function() {
+				if (xHttp.readyState == 4 && xHttp.status == 200) {
+
+				}
+			};*/
+
+			xHttp.send(packagedData);
+			//location.reload();
 		}
 	}
-	//add_restaurant_action
+	
 });

@@ -19,143 +19,110 @@
 
 {% block body %}
 <div id="app">
-    <div id="tab1" v-if="showFirstTab">
+    <form method="POST" action="{% url 'campus:add_restaurant_action' %}" id="restaurant_form">
         <div class="container content-top">
-            <form action = "{% url 'campus:add_restaurant_action' %}" method="POST">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p class="page-header text-center">Create a Restaurant</p>
-                    </div>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="page-header text-center">Create a Restaurant</p>
                 </div>
-                <br>
-                <div class="row pb-2">
-                    <div class="col-lg-12">
-                        <p class="text-center subheading">Preliminary Info</p>
-                    </div>
+            </div>
+            <br>
+            <div class="row pb-2">
+                <div class="col-lg-12">
+                    <p class="text-center subheading">Preliminary Info</p>
                 </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <label for = "restaurant_name">Name</label>
-                        <input type="text" class="form-control" id="restaurant_name" 
-                            name="restaurant_name" v-model='restaurantName'>
-                        <small class="text-muted">Enter your restaurant's name</small>
-                    </div>
-                    <div class="col-lg-6">
-                        <label for = "restaurant_location">Location</label>
-                        <input type="text" class="form-control" id="restaurant_location" 
-                            name="restaurant_location" v-model='restaurantLocation'>
-                        <small class="text-muted">Ex. 123 Main St, New York, NY</small>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for = "restaurant_name">Name</label>
+                    <input type="text" class="form-control" id="restaurant_name" 
+                        name="restaurant_name" v-model='restaurantName'>
+                    <small class="text-muted">Enter your restaurant's name</small>
                 </div>
-                <br>
-                <div class="row pb-2">
-                    <div class="col-lg-6">
-                        <label for = "restaurant_location">Phone Number</label>
-                        <input type="text" class="form-control" id="phone_number" 
-                            name="phone_number" v-model='restaurantPhoneNumber'>
-                        <small class="text-muted">Written as (xxx) xxx-xxxx</small>
-                    </div>
+                <div class="col-lg-6">
+                    <label for = "restaurant_location">Location</label>
+                    <input type="text" class="form-control" id="restaurant_location" 
+                        name="restaurant_location" v-model='restaurantLocation'>
+                    <small class="text-muted">Ex. 123 Main St, New York, NY</small>
                 </div>
-                <br>
-                <div class="row pb-2">
-                    <div class="col-lg-12">
-                        <p class="text-center subheading">Hours of Operation</p>
-                    </div>
+            </div>
+            <br>
+            <div class="row pb-2">
+                <div class="col-lg-6">
+                    <label for = "phone_number">Phone Number</label>
+                    <input type="text" class="form-control" id="phone_number" 
+                        name="phone_number" v-model='restaurantPhoneNumber'>
+                    <small class="text-muted">Written as (xxx) xxx-xxxx</small>
                 </div>
-                <div class="row pb-2">
-                    <div class="col-lg-6">
-                        <label for='sunday'>Sunday</label>
-                        <input type='text' class="form-control" 
-                            name='sunday' id='sunday'
-                            v-model='hoursOfOperation.sunday'>
-                    </div>
-                    <div class="col-lg-6">
-                        <label for="monday">Monday</label>
-                        <input type="text" class="form-control" 
-                            name="monday" id="monday"
-                            v-model='hoursOfOperation.monday'>
-                    </div>
+            </div>
+            <br>
+            <div class="row pb-2">
+                <div class="col-lg-12">
+                    <p class="text-center subheading">Hours of Operation</p>
                 </div>
-                <div class="row pb-2">
-                    <div class="col-lg-6">
-                        <label for='tuesday'>Tuesday</label>
-                        <input type='text' class="form-control" 
-                            name='tuesday' id='tuesday'
-                            v-model='hoursOfOperation.tuesday'>
-                    </div>
-                    <div class="col-lg-6">
-                        <label for="wednesday">Wednesday</label>
-                        <input type="text" class="form-control" 
-                            name="wednesday" id="wednesday"
-                            v-model='hoursOfOperation.wednesday'>
-                    </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-lg-6">
+                    <label for='sunday'>Sunday</label>
+                    <input type='text' class="form-control" 
+                        name='sunday' id='sunday'
+                        v-model='hoursOfOperation.sunday'>
                 </div>
-                <div class="row pb-2">
-                    <div class="col-lg-6">
-                        <label for='thursday'>Thursday</label>
-                        <input type='text' 
-                            class="form-control" 
-                            name='thursday'
-                            id='thursday'>
-                    </div>
-                    <div class="col-lg-6">
-                        <label for="friday">Friday</label>
-                        <input type="text" 
-                            class="form-control" 
-                            name="friday"
-                            id="friday">
-                    </div>
+                <div class="col-lg-6">
+                    <label for="monday">Monday</label>
+                    <input type="text" class="form-control" 
+                        name="monday" id="monday"
+                        v-model='hoursOfOperation.monday'>
                 </div>
-                <div class="row pb-2">
-                    <div class="col-lg-6">
-                        <label for='saturday'>Saturday</label>
-                        <input type='text' 
-                            class="form-control" 
-                            name='saturday'
-                            id='saturday'>
-                    </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-lg-6">
+                    <label for='tuesday'>Tuesday</label>
+                    <input type='text' class="form-control" 
+                        name='tuesday' id='tuesday'
+                        v-model='hoursOfOperation.tuesday'>
                 </div>
+                <div class="col-lg-6">
+                    <label for="wednesday">Wednesday</label>
+                    <input type="text" class="form-control" 
+                        name="wednesday" id="wednesday"
+                        v-model='hoursOfOperation.wednesday'>
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-lg-6">
+                    <label for='thursday'>Thursday</label>
+                    <input type='text' 
+                        class="form-control" 
+                        name='thursday'
+                        id='thursday'>
+                </div>
+                <div class="col-lg-6">
+                    <label for="friday">Friday</label>
+                    <input type="text" 
+                        class="form-control" 
+                        name="friday"
+                        id="friday">
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-lg-6">
+                    <label for='saturday'>Saturday</label>
+                    <input type='text' 
+                        class="form-control" 
+                        name='saturday'
+                        id='saturday'>
+                </div>
+            </div>
 
-                <div class="row">
-                    <div class="col-lg-12 text-right">
-                        <button type="button" class="btn btn-link" v-on:click="goToSecond">Next -></button>
-                    </div>
+            <div class="row">
+                <div class="col-lg-12 text-right">
+                    <button type="submit" class="btn btn-link">Create</button>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-
-    <div id="tab2" v-if="showSecondTab">
-        <div class="container content-top">
-            <form action = "{% url 'campus:add_restaurant_action' %}" method="POST">
-                {% csrf_token %}
-                <h1><center>List of Items</center></h1>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <label for = "item_name">Name</label>
-                        <input type="text" class="form-control"
-                            id="item_name" name="item_name">
-                        <small class="text-muted">Item name (e.g. Noodles)</small>
-                    </div>
-                    <div class="col-lg-6">
-                        <label for = "item_price">Price</label>
-                        <input type="text" class="form-control"
-                            id="item_price" name="item_price">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-lg-6 text-left">
-                        <button type="button" class="btn btn-link" v-on:click="goToFirst"><- Previous</button>
-                    </div>
-                    <div class="col-lg-6 text-right">
-                        <button type="button" class="btn btn-link" v-on:click="submitData">Submit</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    </form>
 </div>
 
 <br>
