@@ -92,21 +92,29 @@
     <br>
     <form method="GET" action="{% url 'campus:add_item' %}">
         <input type="hidden" name="restaurant_id" value="{{restaurant.id}}">
+        {% if is_item_prefilled %}
+        <input type="hidden" name="item_id" value="{{item_id}}">
+        {% endif %}
         <div class="row">
             <div class="col-lg-3">
                 <label for="item_name">Name</label>
                 <input type="text" class="form-control blue-input" 
-                name="item_name" id="item_name">
+                name="item_name" id="item_name" value="{{item_name}}">
             </div>
             <div class="col-lg-3">
                 <label for="item_price">Price</label>
                 <input type="number" class="form-control blue-input"
-                name="item_price" id="item_price">
+                name="item_price" id="item_price" value="{{item_price}}">
             </div>
             <div class="col-lg-2">
                 <label for="add_item_btn"><br></label>
+                {% if is_item_prefilled %}
+                <input type="submit" class="btn btn-outline-primary form-control"
+                id="add_item_btn" value="Save Changes">
+                {% else %}
                 <input type="submit" class="btn btn-outline-primary form-control"
                 id="add_item_btn" value="Add Item">
+                {% endif %}
             </div>
         </div>
     </form>
@@ -126,7 +134,7 @@
                         <tr>
                             <td><a href="{% url 'campus:edit_item' item.id restaurant.id %}">&#9998;</a></td>
                             <td>{{item.name}}</td>
-                            <td>${{item.price |floatformat:2}}</td>
+                            <td>${{item.price | floatformat:2}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

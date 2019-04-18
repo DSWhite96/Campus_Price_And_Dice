@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
+from django.urls import reverse
 from .models import Restaurant, Item, User
 from .verification.add_restaruant import Verify
 import json
@@ -69,13 +70,17 @@ def compare_restaurants_action(request):
     
     return render(request, 'campus/compare-restaurants.html', context)
 
-def restaurant_detail(request, restaurant_id):
+def restaurant_detail(request, restaurant_id, context={}):
+    
     try: 
         restaurant = Restaurant.objects.get(pk=restaurant_id)
     except Restaurant.DoesNotExist:
         raise Http404("Restaurant does not exist")
 
-    return render(request, 'campus/restaurant-detail.html', {'restaurant': restaurant})
+    context['restaurant'] = restaurant
+
+    
+    return render(request, 'campus/restaurant-detail.html', context)
 
 '''
     Method to add a restaurant to the database. Takes in a 
@@ -106,7 +111,7 @@ def add_restaurant_action(request):
 
         context['error_message'] = error_message
     '''
-    restaurant_id = data['restaurant_id']
+    restaurant_id = data.get('restaurant_id', None)
 
     try:
         restaurant = Restaurant.objects.get(pk=restaurant_id)
@@ -139,7 +144,6 @@ def add_restaurant_action(request):
         friday = data['friday']
         saturday = data['saturday']
 
-
     if invalid_form:
         return render(request, 'campus/add-restaurant.html', {})
     else:
@@ -151,22 +155,47 @@ def add_restaurant_action(request):
                 friday=friday, saturday=saturday)
 
         restaurant.save()
-        return render(request, 'campus/restaurant-detail.html', {'restaurant': restaurant})
+
+        '''DERRICK'''
+        return HttpResponseRedirect(reverse('campus:restaurant_detail', 
+        kwargs={'restaurant_id': restaurant.id}))
 
 def add_item(request):
-    restaurant_id = request.GET.get('restaurant_id')
-    item_name = request.GET.get('item_name')
-    item_price = request.GET.get('item_price')
 
+    restaurant_id = request.GET.get('restaurant_id')
+    item_id = request.GET.get('item_id')
+    
     try:
         restaurant = Restaurant.objects.get(pk=restaurant_id)
+    except Restaurant.DoesNotExist:
+        restaurant = None
+
+    try:
+        item = Item.objects.get(pk=item_id)
+        is_save = True
+    except Item.DoesNotExist:
+        is_save = False
+    
+    if is_save:
+        item.name = request.GET.get('item_name')
+        item.price = request.GET.get('item_price')
+    else:
+        item_name = request.GET.get('item_name')
+        item_price = request.GET.get('item_price')
+
+    
+    if is_save:
+        item.save()
+    else:
         item = Item(name=item_name, price=item_price)
         item.save()
         restaurant.item_list.add(item)
-    except Restaurant.DoesNotExist:
-        restaurant = None
-        
-    return restaurant_detail(request, restaurant.id)
+
+    context = {
+        'view_forward': True
+    }
+
+    return restaurant_detail(request, restaurant.id, context)
 
 def edit_restaurant(request, restaurant_id):
     context = {}
@@ -201,13 +230,16 @@ def edit_item(request, item_id, restaurant_id):
         restaurant = Restaurant.objects.get(pk=restaurant_id)
         item = Item.objects.get(pk=item_id)
 
-        context['item_name'] = request.POST['item_name']
-        context['item_price'] = request.POST['item_price']
-    except Restaurant.DoesNotExist:
-        pass
+        context['item_id'] = item.id
+        context['item_name'] = item.name
+        context['item_price'] = item.price
+        context['is_item_prefilled'] = True
 
-    return render(request, 'campus/index.html', context)
-   
+        return restaurant_detail(request, restaurant.id, context=context)
+
+    except (Restaurant.DoesNotExist, Item.DoesNotExist):
+        return render(request, 'campus/index.html', {})
+
 
 def add_restaurant_page(request):
     return render(request, 'campus/add-restaurant.html', {})
