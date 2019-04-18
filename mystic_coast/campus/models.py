@@ -1,6 +1,8 @@
 from django.db import models
 import logging
 
+DEFAULT_HOURS = '8AM - 10PM'
+
 class Item(models.Model):
     price = models.FloatField(default=0)
     name = models.CharField(max_length=50)
@@ -8,15 +10,17 @@ class Item(models.Model):
 class Restaurant(models.Model):
     name = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
+    phone_number = models.CharField(max_length=20, default='(xxx) xxx-xxxx')
 
-    hours_of_operation = {
-        'sunday': models.CharField(max_length=20),
-        'monday': models.CharField(max_length=20),
-        'tuesday': models.CharField(max_length=20),
-        'wednesday': models.CharField(max_length=20),
-        'thursday': models.CharField(max_length=20),
-        'friday': models.CharField(max_length=20)
-    }
+    #Ideally, should convert this to JSONField
+    #Only a temporary solution for the time being
+    sunday = models.CharField(max_length=20, default=DEFAULT_HOURS)
+    monday = models.CharField(max_length=20, default=DEFAULT_HOURS)
+    tuesday = models.CharField(max_length=20, default=DEFAULT_HOURS)
+    wednesday = models.CharField(max_length=20, default=DEFAULT_HOURS)
+    thursday = models.CharField(max_length=20, default=DEFAULT_HOURS)
+    friday = models.CharField(max_length=20, default=DEFAULT_HOURS)
+    saturday = models.CharField(max_length=20, default=DEFAULT_HOURS)
 
     #initial null list of item_list 
     item_list = models.ManyToManyField(Item)

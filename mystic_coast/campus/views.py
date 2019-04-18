@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from .models import Restaurant, Item, User
 from .verification.add_restaruant import Verify
@@ -85,6 +85,7 @@ def restaurant_detail(request, restaurant_id):
 
 def add_restaurant_action(request):
     data = request.POST
+
     invalid_form = False
     error_message = ''
     context = {}
@@ -92,9 +93,17 @@ def add_restaurant_action(request):
     name = data['restaurant_name']
     location = data['restaurant_location']
     phone_number = data['phone_number']
-    
-    '''is_prelim_info_correct = Verify.preliminary_info(name, location, phone_number)
 
+    sunday = data['sunday']
+    monday = data['monday']
+    tuesday = data['tuesday']
+    wednesday = data['wednesday']
+    thursday = data['thursday']
+    friday = data['friday']
+    saturday = data['saturday']
+    '''
+    is_prelim_info_correct = Verify.preliminary_info(name, location, phone_number)
+    
     if not (is_prelim_info_correct == 'SUCCESS'):
         invalid_form = True
 
@@ -107,26 +116,34 @@ def add_restaurant_action(request):
         else:
             error_message = "Something went wrong!"
 
-        context['error_message'] = error_message'''
-    
-    restaurant = Restaurant(name=name, location=location)
-    restaurant.save()
-
+        context['error_message'] = error_message
     '''
-    for item_index in item_list_dict:
-        item = item_list_dict[item_index]
-        item_name = item['name']
-        item_price = item['price']
-        item = Item(name=item_name, price=item_price)
-        item.save()
-        restaurant.item_list.add(item)
-    '''
-
     if invalid_form:
         return render(request, 'campus/add-restaurant.html', {})
     else:
+        
+        restaurant = Restaurant(name=name, 
+            location=location, phone_number=phone_number, sunday=sunday, 
+            monday=monday, tuesday=tuesday, wednesday=wednesday, thursday=thursday,
+            friday=friday, saturday=saturday)
+
+        restaurant.save()
         return render(request, 'campus/restaurant-detail.html', {'restaurant': restaurant})
 
+def add_item(request):
+    restaurant_id = request.GET.get('restaurant_id')
+    item_name = request.GET.get('item_name')
+    item_price = request.GET.get('item_price')
+
+    try:
+        restaurant = Restaurant.objects.get(pk=restaurant_id)
+        item = Item(name=item_name, price=item_price)
+        item.save()
+        restaurant.item_list.add(item)
+    except Restaurant.DoesNotExist:
+        restaurant = None
+        
+    return restaurant_detail(request, restaurant.id)
 
 def add_restaurant_page(request):
     return render(request, 'campus/add-restaurant.html', {})

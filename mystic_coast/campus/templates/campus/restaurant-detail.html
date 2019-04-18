@@ -16,25 +16,102 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
-            <p class="lead">Average Price: ${{restaurant.get_average_price |floatformat:2}}</p>
+        <div class="col-lg-2">
+            S: {{restaurant.sunday}}
+        </div>
+        <div class="col-lg-2">
+            M: {{restaurant.monday}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            T: {{restaurant.tuesday}}
+        </div>
+        <div class="col-lg-2">
+            W: {{restaurant.wednesday}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            Th: {{restaurant.thursday}}
+        </div>
+        <div class="col-lg-2">
+            F: {{restaurant.friday}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            S: {{restaurant.saturday}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
+            <p class="lead">Average Price: 
+                {% if restaurant.get_average_price != 'N/A' %}
+                ${{restaurant.get_average_price | floatformat:2}}
+                {% else %}
+                {{restaurant.get_average_price}}
+                {% endif %}
+            </p>
         </div>
     </div>
     <div class="row">
             <div class="col-lg-6">
-                <p class="lead">Lowest Price: ${{restaurant.get_min_price |floatformat:2}}</p>
+                <p class="lead">Lowest Price: 
+                    {% if restaurant.get_min_price != 'N/A' %}
+                    ${{restaurant.get_min_price | floatformat:2}}
+                    {% else %}
+                    {{restaurant.get_min_price}}
+                    {% endif %}
+                </p>
             </div>
     </div>
     <div class="row">
             <div class="col-lg-6">
-                <p class="lead">Highest Price: ${{restaurant.get_max_price |floatformat:2}}</p>
+                <p class="lead">Highest Price: 
+                    {% if restaurant.get_max_price != 'N/A' %}
+                    ${{restaurant.get_max_price | floatformat:2}}
+                    {% else %}
+                    {{restaurant.get_max_price}}
+                    {% endif %}
+                </p>
             </div>
     </div>
     <div class="row">
             <div class="col-lg-6">
-                <p class="lead">Median Price: ${{restaurant.get_average_price |floatformat:2}}</p>
+                <p class="lead">Median Price: 
+                    {% if restaurant.get_average_price != 'N/A' %}
+                    ${{restaurant.get_average_price | floatformat:2}}
+                    {% else %}
+                    {{restaurant.get_average_price}}
+                    {% endif %}
+                </p>
             </div>
     </div>
+    <br>
+    <form method="GET" action="{% url 'campus:add_item' %}">
+ 
+        <input type="hidden" name="restaurant_id" value="{{restaurant.id}}">
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="item_name">Name</label>
+                <input type="text" class="form-control blue-input" 
+                name="item_name" id="item_name">
+            </div>
+            <div class="col-lg-3">
+                <label for="item_price">Price</label>
+                <input type="number" class="form-control blue-input"
+                name="item_price" id="item_price">
+            </div>
+            <div class="col-lg-2">
+                <label for="add_item_btn"><br></label>
+                <input type="submit" class="btn btn-outline-primary form-control"
+                id="add_item_btn" value="Add Item">
+            </div>
+        </div>
+    </form>
+    <br>
     <div class="row">
         <div class="col-lg-12">
                 <table class="table table-sm table-hover table-responsive table-striped">
