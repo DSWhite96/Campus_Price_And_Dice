@@ -85,22 +85,10 @@ def restaurant_detail(request, restaurant_id):
 
 def add_restaurant_action(request):
     data = request.POST
-
     invalid_form = False
     error_message = ''
     context = {}
 
-    name = data['restaurant_name']
-    location = data['restaurant_location']
-    phone_number = data['phone_number']
-
-    sunday = data['sunday']
-    monday = data['monday']
-    tuesday = data['tuesday']
-    wednesday = data['wednesday']
-    thursday = data['thursday']
-    friday = data['friday']
-    saturday = data['saturday']
     '''
     is_prelim_info_correct = Verify.preliminary_info(name, location, phone_number)
     
@@ -118,14 +106,49 @@ def add_restaurant_action(request):
 
         context['error_message'] = error_message
     '''
+    restaurant_id = data['restaurant_id']
+
+    try:
+        restaurant = Restaurant.objects.get(pk=restaurant_id)
+        is_save = True
+    except Restaurant.DoesNotExist:
+        is_save = False
+
+    if is_save:
+        restaurant.name = data['restaurant_name']
+        restaurant.location = data['restaurant_location']
+        restaurant.phone_number = data['phone_number']
+
+        restaurant.sunday = data['sunday']
+        restaurant.monday = data['monday']
+        restaurant.tuesday = data['tuesday']
+        restaurant.wednesday = data['wednesday']
+        restaurant.thursday = data['thursday']
+        restaurant.friday = data['friday']
+        restaurant.saturday = data['saturday']
+    else:
+        name = data['restaurant_name']
+        location = data['restaurant_location']
+        phone_number = data['phone_number']
+
+        sunday = data['sunday']
+        monday = data['monday']
+        tuesday = data['tuesday']
+        wednesday = data['wednesday']
+        thursday = data['thursday']
+        friday = data['friday']
+        saturday = data['saturday']
+
+
     if invalid_form:
         return render(request, 'campus/add-restaurant.html', {})
     else:
         
-        restaurant = Restaurant(name=name, 
-            location=location, phone_number=phone_number, sunday=sunday, 
-            monday=monday, tuesday=tuesday, wednesday=wednesday, thursday=thursday,
-            friday=friday, saturday=saturday)
+        if not is_save:
+            restaurant = Restaurant(name=name, 
+                location=location, phone_number=phone_number, sunday=sunday, 
+                monday=monday, tuesday=tuesday, wednesday=wednesday, thursday=thursday,
+                friday=friday, saturday=saturday)
 
         restaurant.save()
         return render(request, 'campus/restaurant-detail.html', {'restaurant': restaurant})
@@ -144,6 +167,47 @@ def add_item(request):
         restaurant = None
         
     return restaurant_detail(request, restaurant.id)
+
+def edit_restaurant(request, restaurant_id):
+    context = {}
+
+    try:
+        restaurant = Restaurant.objects.get(pk=restaurant_id)
+
+        context['name'] = restaurant.name
+        context['location'] = restaurant.location
+        context['phone_number'] = restaurant.phone_number
+       
+        context['sunday'] = restaurant.sunday
+        context['monday'] = restaurant.monday
+        context['tuesday'] = restaurant.tuesday
+        context['wednesday'] = restaurant.wednesday
+        context['thursday'] = restaurant.thursday
+        context['friday'] = restaurant.friday
+        context['saturday'] = restaurant.saturday
+
+        context['is_data_preloaded'] = True
+        context['restaurant_id'] = restaurant.id
+        return render(request, 'campus/add-restaurant.html', context)   
+
+    except Restaurant.DoesNotExist:
+        restaurant = None
+        return restaurant_list(request)
+
+def edit_item(request, item_id, restaurant_id):
+    context = {}
+
+    try:
+        restaurant = Restaurant.objects.get(pk=restaurant_id)
+        item = Item.objects.get(pk=item_id)
+
+        context['item_name'] = request.POST['item_name']
+        context['item_price'] = request.POST['item_price']
+    except Restaurant.DoesNotExist:
+        pass
+
+    return render(request, 'campus/index.html', context)
+   
 
 def add_restaurant_page(request):
     return render(request, 'campus/add-restaurant.html', {})

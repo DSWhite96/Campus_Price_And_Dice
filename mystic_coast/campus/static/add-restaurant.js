@@ -4,7 +4,7 @@ var app = new Vue({
 	delimiters: ['[[',']]'],
 	el:'#app',
 	data:{
-			restaurantName: "",
+			restaurantName: null,
 			restaurantLocation: "",
 			restaurantPhoneNumber: "",
 			hoursOfOperation: hoursOfOperation,

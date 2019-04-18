@@ -23,6 +23,7 @@
                     <thead>
                          <tr>
                               <th></th>
+                              <th></th>
                               <th>Name</th>
                               <th>Location</th>
                               <th>Average Price</th>
@@ -34,6 +35,7 @@
                          {% for restaurant in restaurant_list %}
                          <tr>
                               <td><a href="{% url 'campus:delete_restaurant' restaurant.id %}">&#10005;</a></td>
+                              <td><a href="{% url 'campus:edit_restaurant' restaurant.id %}">&#9998;</a></td>
                               <td><a href="{% url 'campus:restaurant_detail' restaurant.id %}">{{restaurant.name}}</a></td>
                               <td>{{restaurant.location}}</td>
                               
