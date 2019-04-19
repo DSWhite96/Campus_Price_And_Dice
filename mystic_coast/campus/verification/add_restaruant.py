@@ -11,7 +11,7 @@ MAX_INPUT_LENGTH = 200
 PHONE_NUMBER_FORMAT = "(\d{3}) \w{3}-\w{4}"
 LOCATION_FORMAT = "\w{1+} \w{1+} \w*, \w{1+}, \w{2}" #Subject to change
 
-class Verify():
+class VerifyRestaurant():
 
     ''' MIN_INPUT_LENGTH = 0
     MAX_INPUT_LENGTH = 200
@@ -36,4 +36,5 @@ class Verify():
             return "LOCATION_LENGTH"
 
         return "SUCCESS"
+
     

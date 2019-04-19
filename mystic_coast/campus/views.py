@@ -2,7 +2,8 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
 from .models import Restaurant, Item, User
-from .verification.add_restaruant import Verify
+from .verification.add_restaruant import VerifyRestaurant
+from .verification.add_item import VerifyItem
 import json
 
 def index(request):
@@ -160,42 +161,7 @@ def add_restaurant_action(request):
         return HttpResponseRedirect(reverse('campus:restaurant_detail', 
         kwargs={'restaurant_id': restaurant.id}))
 
-def add_item(request):
 
-    restaurant_id = request.GET.get('restaurant_id')
-    item_id = request.GET.get('item_id')
-    
-    try:
-        restaurant = Restaurant.objects.get(pk=restaurant_id)
-    except Restaurant.DoesNotExist:
-        restaurant = None
-
-    try:
-        item = Item.objects.get(pk=item_id)
-        is_save = True
-    except Item.DoesNotExist:
-        is_save = False
-    
-    if is_save:
-        item.name = request.GET.get('item_name')
-        item.price = request.GET.get('item_price')
-    else:
-        item_name = request.GET.get('item_name')
-        item_price = request.GET.get('item_price')
-
-    
-    if is_save:
-        item.save()
-    else:
-        item = Item(name=item_name, price=item_price)
-        item.save()
-        restaurant.item_list.add(item)
-
-    context = {
-        'view_forward': True
-    }
-
-    return restaurant_detail(request, restaurant.id, context)
 
 def edit_restaurant(request, restaurant_id):
     context = {}
@@ -223,22 +189,67 @@ def edit_restaurant(request, restaurant_id):
         restaurant = None
         return restaurant_list(request)
 
-def edit_item(request, item_id, restaurant_id):
+def add_item(request):
     context = {}
 
+    restaurant_id = request.POST.get('restaurant_id')
+    item_id = request.POST.get('item_id')
+    
     try:
         restaurant = Restaurant.objects.get(pk=restaurant_id)
-        item = Item.objects.get(pk=item_id)
 
-        context['item_id'] = item.id
-        context['item_name'] = item.name
-        context['item_price'] = item.price
-        context['is_item_prefilled'] = True
+        try:
+            item = Item.objects.get(pk=item_id)
+            is_save = True
+        except Item.DoesNotExist:
+            is_save = False
 
-        return restaurant_detail(request, restaurant.id, context=context)
+        item_name = request.POST.get('item_name', '')
+        item_price = request.POST.get('item_price', 0)
 
-    except (Restaurant.DoesNotExist, Item.DoesNotExist):
-        return render(request, 'campus/index.html', {})
+        if item_price == '':
+            item_price = 0
+
+        form_status = VerifyItem.preliminary_info(item_name, item_price)
+
+        if form_status == 'SUCCESS':
+            if is_save:
+                item.name = item_name
+                item.price = item_price
+                item.save()
+            else:
+                item = Item(name=item_name, price=item_price)
+                item.save()
+                restaurant.item_list.add(item)
+        else:
+            if form_status == 'NAME_LENGTH':
+                context['item_error'] = """Oops! Your item's
+                name needs to larger than zero characters, and 
+                no greater than 50 characters"""
+            elif form_status == 'PRICE_VALUE':
+                context['item_error'] = """Oops! Your item's price 
+                price needs to be within the range: $0 - $1000"""
+
+    except Restaurant.DoesNotExist:
+        restaurant = None
+
+    return HttpResponseRedirect(reverse('campus:restaurant_detail',
+        kwargs={'restaurant_id': restaurant_id}))
+    
+
+def load_item(request, item_id, restaurant_id):
+    context = {}
+    
+    restaurant = Restaurant.objects.get(pk=restaurant_id)
+    item = Item.objects.get(pk=item_id)
+
+    context['item_id'] = item.id
+    context['item_name'] = item.name
+    context['item_price'] = item.price
+    context['is_item_prefilled'] = True
+
+    return restaurant_detail(request, restaurant.id, context=context)
+
 
 
 def add_restaurant_page(request):
