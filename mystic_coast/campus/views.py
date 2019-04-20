@@ -19,16 +19,7 @@ def restaurant_list(request):
 def delete_restaurant(request, restaurant_id):
     restaurant = Restaurant.objects.get(id=restaurant_id)
     restaurant.delete()
-
-    '''
-        DERRICK: I recommend using 
-        return HttpResponseRedirect(request.path_info)
-        This redirects the user to the restaurant-list page,
-        and if the user refreshes the page, it'll take them back
-        to the same page (Try refreshing the page after deleting an item
-        with the current code)
-    '''
-    return restaurant_list(request)
+    return HttpResponseRedirect(reverse('campus:restaurant_list'))
 
 def average_restaurant_list(request):
     #average_restaurant_list = Restaurant.objects.all()
