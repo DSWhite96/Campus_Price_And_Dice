@@ -20,6 +20,13 @@
             <p class="lead" >{{restaurant.phone_number}}</p>
         </div>
     </div>
+    {% if restaurant.description != 'No description added' %}
+    <div class="row">
+        <div class="col-lg-6">
+                <p>{{restaurant.description}}</p>
+        </div>
+    </div>
+    {% endif %}
     <div class="row">
         <div class="col-lg-2">
             S: {{restaurant.sunday}}
