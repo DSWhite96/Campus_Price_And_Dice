@@ -21,6 +21,11 @@ def delete_restaurant(request, restaurant_id):
     restaurant.delete()
     return HttpResponseRedirect(reverse('campus:restaurant_list'))
 
+def delete_item(request, restaurant_id, item_id):
+    item = Item.objects.get(id=item_id)
+    item.delete()
+    return HttpResponseRedirect(reverse('campus:restaurant_detail', kwargs={'restaurant_id': restaurant_id}))
+
 def average_restaurant_list(request):
     #average_restaurant_list = Restaurant.objects.all()
     #context = {'average_restaurant_list': average_restaurant_list}
