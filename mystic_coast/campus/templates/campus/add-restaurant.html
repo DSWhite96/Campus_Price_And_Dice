@@ -28,6 +28,16 @@
                 </div>
             </div>
             <br>
+            {% if form_error %}
+            <div class="row"> 
+               <div class="col-lg-6 offset-lg-3">
+                    <div class="alert alert-danger">
+                            {{ form_error }}
+                    </div>            
+                </div>
+            </div>
+            <br>
+            {% endif %}
             <div class="row pb-2">
                 <div class="col-lg-12">
                     <p class="text-center subheading">Preliminary Info</p>

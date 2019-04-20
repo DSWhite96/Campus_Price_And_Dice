@@ -16,6 +16,11 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-lg-6">
+            <p class="lead" >{{restaurant.phone_number}}</p>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-2">
             S: {{restaurant.sunday}}
         </div>
@@ -44,7 +49,11 @@
             S: {{restaurant.saturday}}
         </div>
     </div>
-    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            <hr>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-3">
             <p class="lead">Average Price: 
@@ -55,41 +64,61 @@
                 {% endif %}
             </p>
         </div>
+        <div class="col-lg-3">
+            <p class="lead">Median Price: 
+                {% if restaurant.get_average_price != 'N/A' %}
+                ${{restaurant.get_average_price | floatformat:2}}
+                {% else %}
+                {{restaurant.get_average_price}}
+                {% endif %}
+            </p>
+        </div>
     </div>
     <div class="row">
-            <div class="col-lg-6">
-                <p class="lead">Lowest Price: 
-                    {% if restaurant.get_min_price != 'N/A' %}
-                    ${{restaurant.get_min_price | floatformat:2}}
-                    {% else %}
-                    {{restaurant.get_min_price}}
-                    {% endif %}
-                </p>
-            </div>
+        <div class="col-lg-3">
+            <p class="lead">Lowest Price: 
+                {% if restaurant.get_min_price != 'N/A' %}
+                ${{restaurant.get_min_price | floatformat:2}}
+                {% else %}
+                {{restaurant.get_min_price}}
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-lg-3">
+            <p class="lead">Highest Price: 
+                {% if restaurant.get_max_price != 'N/A' %}
+                ${{restaurant.get_max_price | floatformat:2}}
+                {% else %}
+                {{restaurant.get_max_price}}
+                {% endif %}
+            </p>
+        </div>
     </div>
     <div class="row">
-            <div class="col-lg-6">
-                <p class="lead">Highest Price: 
-                    {% if restaurant.get_max_price != 'N/A' %}
-                    ${{restaurant.get_max_price | floatformat:2}}
-                    {% else %}
-                    {{restaurant.get_max_price}}
-                    {% endif %}
-                </p>
-            </div>
+        <div class="col-lg-12">
+            <div id="map" class="map"></div>
+        </div>
     </div>
+    <hr>
     <div class="row">
-            <div class="col-lg-6">
-                <p class="lead">Median Price: 
-                    {% if restaurant.get_average_price != 'N/A' %}
-                    ${{restaurant.get_average_price | floatformat:2}}
-                    {% else %}
-                    {{restaurant.get_average_price}}
-                    {% endif %}
-                </p>
+        <div class="col-lg-7">
+            <p class="lead">
+                Hello [Owner]! Use the form below
+                to add (or edit) your restaurant's items
+            </p>
+        </div>
+    </div>
+    {% if form_error %}
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="alert alert-danger">
+                {{ form_error }}
             </div>
+        </div>
     </div>
     <br>
+    {% endif %}
+    
     <form method="POST" action="{% url 'campus:add_item' %}">
         {% csrf_token %}
         <input type="hidden" name="restaurant_id" value="{{restaurant.id}}">
@@ -119,7 +148,7 @@
             </div>
         </div>
     </form>
-    <br>
+    
     <div class="row">
         <div class="col-lg-12">
                 <table class="table table-hover table-responsive table-striped">
@@ -144,11 +173,7 @@
     </div>
 
     <input type="hidden" id="location" value="{{ restaurant.location }}">
-    <div class="row">
-        <div class="col-lg-12">
-            <div id="map" class="map"></div>
-        </div>
-    </div>
+
     <br>
 
     <script>
