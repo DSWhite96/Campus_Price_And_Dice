@@ -38,8 +38,6 @@
                               <td><a href="{% url 'campus:edit_restaurant' restaurant.id %}">&#9998;</a></td>
                               <td><a href="{% url 'campus:restaurant_detail' restaurant.id %}">{{restaurant.name}}</a></td>
                               <td>{{restaurant.location}}</td>
-
-                              <td>{{restaurant.description}}</td>
                               
                               <td>
                                    {% if restaurant.get_average_price != 'N/A' %}
