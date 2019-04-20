@@ -196,6 +196,7 @@ def edit_restaurant(request, restaurant_id):
         context['name'] = restaurant.name
         context['location'] = restaurant.location
         context['phone_number'] = restaurant.phone_number
+        context['restaurant_description'] = restaurant.description
        
         context['sunday'] = restaurant.sunday
         context['monday'] = restaurant.monday
