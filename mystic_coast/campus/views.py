@@ -100,6 +100,7 @@ def add_restaurant_action(request, context = {}):
     name = data.get('restaurant_name', '')
     location = data.get('restaurant_location', '')
     phone_number = data.get('phone_number', '')
+    description = data.get('restaurant_description', '')
     
     sunday = data.get('sunday', '')
     monday = data.get('monday', '')
@@ -114,6 +115,7 @@ def add_restaurant_action(request, context = {}):
     context['name'] = name
     context['location'] = location
     context['phone_number'] = phone_number
+    context['restaurant_description'] = description
     context['sunday'] = sunday
     context['monday'] = monday
     context['tuesday'] = tuesday
@@ -144,6 +146,7 @@ def add_restaurant_action(request, context = {}):
             restaurant.name = name
             restaurant.location = location
             restaurant.phone_number = phone_number
+            restaurant.description = description
 
             restaurant.sunday = data['sunday']
             restaurant.monday = data['monday']
@@ -156,6 +159,7 @@ def add_restaurant_action(request, context = {}):
             name = data['restaurant_name']
             location = data['restaurant_location']
             phone_number = data['phone_number']
+            description = data['restaurant_description']
 
             sunday = data['sunday']
             monday = data['monday']
@@ -172,13 +176,12 @@ def add_restaurant_action(request, context = {}):
         
         if not is_save:
             restaurant = Restaurant(name=name, 
-                location=location, phone_number=phone_number, sunday=sunday, 
+                location=location, phone_number=phone_number, description=description, sunday=sunday, 
                 monday=monday, tuesday=tuesday, wednesday=wednesday, thursday=thursday,
                 friday=friday, saturday=saturday)
 
         restaurant.save()
 
-        '''DERRICK'''
         return HttpResponseRedirect(reverse('campus:restaurant_detail', 
         kwargs={'restaurant_id': restaurant.id}))
 

@@ -11,6 +11,7 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
     phone_number = models.CharField(max_length=20, default='(xxx) xxx-xxxx')
+    description = models.CharField(max_length=300, default='No description added')
 
     #Ideally, should convert this to JSONField
     #Only a temporary solution for the time being
