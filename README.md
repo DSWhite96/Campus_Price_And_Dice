@@ -1,4 +1,4 @@
-# CampusPriceAndDice
+# Campus: Price and Dice
 An application that allows users to determine which restaurant on campus they eat at by comparing prices and menu items.
 # Description
 Campus Price and Dice is designed to help students find food priced at their preference. The application will preload
