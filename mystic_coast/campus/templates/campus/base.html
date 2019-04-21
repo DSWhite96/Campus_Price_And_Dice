@@ -53,22 +53,36 @@
                         <a class="nav-link" href="{% url 'campus:compare_restaurants' %}">Compare</a>
                     </li>
                     {% endblock %}
-                    
-                    {% block  configure_dropdown_link %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Configure
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'campus:add_restaurant' %}">Create</a>
-                    </li>
-                    {% endblock %}
+
+                    {% if user.is_staff %}
+                        {% block  configure_dropdown_link %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Configure
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'campus:add_restaurant' %}">Create</a>
+                        </li>
+                        {% endblock %}
+                    {% endif %}
 
                     {% block user_profile_link %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'campus:user_profile' %}">Profile</a>
-                    </li>
+                        <li class="nav-item">
+                            {% if user.is_authenticated %}
+                                <a class="nav-link" href="{% url 'campus:user_profile' %}">Profile</a>
+                            {% else %}
+                                <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                            {% endif %}
+                        </li>
                     {% endblock %}
+
+                    {% if user.is_authenticated %}
+                        {% block logout_link %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                        </li>
+                        {% endblock %}
+                    {% endif %}
 
                 </ul>
                 <!--
