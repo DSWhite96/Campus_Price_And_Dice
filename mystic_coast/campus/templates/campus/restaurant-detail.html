@@ -1,9 +1,9 @@
 {% extends "./base.html" %}
 {% block title %} Restaurant Detail {% endblock %}
-{% block restautant_detail_list}
-
+{% block restaurant_detail_list}
+{% load staticfiles %}
 {% block body %}
-  
+
 <div class="container content-top">
     <div class="row">
         <div class="col-lg-6">
@@ -24,6 +24,14 @@
     <div class="row">
         <div class="col-lg-6">
                 <p>{{restaurant.description}}</p>
+        </div>
+    </div>
+    {% endif %}
+    {% if restaurant.hasImage != 0 %}
+    <div class="row">
+        <div class="col-lg-6 centered">
+                <img style="width: 245px; height: 245px;" alt="Image description"
+                             src="{% static 'images/test.jpg' %}"/>
         </div>
     </div>
     {% endif %}
