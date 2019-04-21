@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'campus.apps.CampusConfig',
     'users.apps.UsersConfig',
+    'compare.apps.CompareConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',

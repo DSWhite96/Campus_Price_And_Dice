@@ -6,8 +6,7 @@ from .verification import verify_restaurant, verify_item
 import json
 
 def index(request):
-    current_user = User.objects.get(username='root')
-    context = {'user': current_user}
+    context = {}
 
     return render(request, 'campus/index.html', context)
 
@@ -31,40 +30,6 @@ def average_restaurant_list(request):
     #context = {'average_restaurant_list': average_restaurant_list}
     print("test")
     #return render(request, 'campus/restaurant-list.html', context)
-
-def compare_restaurants(request, context = None):
-    
-    if not context:
-        context = {'default_data': ''}
-
-    return render(request, 'campus/compare-restaurants.html', context)
-
-def compare_restaurants_action(request):
-    name_error_list = []
-
-    first_restaurant_name = request.GET.get('first_restaurant')
-    second_restaurant_name = request.GET.get('second_restaurant')
-    
-    try:
-        first_restaurant = Restaurant.objects.get(name=first_restaurant_name)
-    except Restaurant.DoesNotExist:
-        first_restaurant = None
-        name_error_list.append(second_restaurant_name)
-
-    try:
-        second_restaurant = Restaurant.objects.get(name=second_restaurant_name)
-    except Restaurant.DoesNotExist:
-        second_restaurant = None
-        name_error_list.append(first_restaurant_name)
-        
-
-    context = {
-        'first_restaurant': first_restaurant,
-        'second_restaurant': second_restaurant,
-        'name_error_list': name_error_list
-    }
-    
-    return render(request, 'campus/compare-restaurants.html', context)
 
 def restaurant_detail(request, restaurant_id, context={}):
     
