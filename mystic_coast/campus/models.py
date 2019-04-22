@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import logging
 
 DEFAULT_HOURS = '8AM - 10PM'
@@ -112,26 +113,11 @@ class Restaurant(models.Model):
                     break
         return expensive_item
 
-class User(models.Model):
-    username = models.CharField(max_length=200)
-    password = models.CharField(max_length=200)
-    email = models.CharField(max_length=200)
-    gender = models.CharField(max_length=20)
-    age = models.IntegerField(default=0)
-    is_admin = models.BooleanField()
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     favorite_restaurant_list = models.ManyToManyField(Restaurant)
     
     def add_favorite_restaurant(self, restaurant):
         self.favorite_restaurant_list.add(restaurant)
-
-    '''
-    
-    DERRICK: For Reference on how to create an iterable 
-    from a ManyToManyField
-
-    '''
-    def test(self):
-        my_list = self.favorite_restaurant_list.all()
-        print('Restaurant Name: %s' % my_list[0].name)
 
 
