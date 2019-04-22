@@ -28,12 +28,12 @@
     </div>
     {% endif %}
     {% if restaurant.hasImage != 0 %}
-    <div class="row">
-        <div class="col-lg-6 centered">
-                <img style="width: 245px; height: 245px;" alt="Image description"
-                             src="{% static 'images/test.jpg' %}"/>
+
+        <div class="col-lg-6">
+                <img style="width: 350px; height: 245px;" alt="Cover Image"
+                     src="{% static 'images/test.jpg' %}"/>
         </div>
-    </div>
+
     {% endif %}
     <div class="row">
         <div class="col-lg-2">
@@ -176,6 +176,7 @@
                             {% endif %}
                             <th>Item</th>
                             <th>Price</th>
+                            <th>Description</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -187,6 +188,7 @@
                             {% endif %}
                             <td>{{item.name}}</td>
                             <td>${{item.price | floatformat:2}}</td>
+                            <td>{{item.description}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
