@@ -6,7 +6,7 @@ DEFAULT_HOURS = '8AM - 10PM'
 class Item(models.Model):
     price = models.FloatField(default=0)
     name = models.CharField(max_length=50)
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=100, default='No description')
   
 class Restaurant(models.Model):
     name = models.CharField(max_length=200)
