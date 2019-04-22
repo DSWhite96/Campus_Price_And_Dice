@@ -197,9 +197,11 @@ def add_item(request):
 
         item_name = request.POST.get('item_name', '')
         item_price = request.POST.get('item_price', 0)
+        item_description = request.POST.get('item_description', '')
 
         context['item_name'] = item_name
         context['item_price'] = item_price
+        context['item_description'] = item_description
 
         if is_save:
             context['item_id'] = item.id
@@ -214,9 +216,10 @@ def add_item(request):
             if is_save:
                 item.name = item_name
                 item.price = item_price
+                item.description = item_description
                 item.save()
             else:
-                item = Item(name=item_name, price=item_price)
+                item = Item(name=item_name, price=item_price, description=item_description)
                 item.save()
                 restaurant.item_list.add(item)
         else:
