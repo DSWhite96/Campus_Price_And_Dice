@@ -262,17 +262,18 @@ def add_restaurant_page(request, context = {}):
 
 def add_favorite_restaurant(request, restaurant_id):
     try:
-        restaurant = Restaurant.objects.get(pk=restaurant_id)
-
+        restaurant = Restaurant.objects.get(id=restaurant_id)
+        current_user = request.user
         #'root' to be replaced by session username
-        current_user = User.objects.get(username='root') 
-        current_user.add_favorite_restaurant(restaurant)
+        #current_user = User.objects.get(username='name') 
+        #current_profile.add_favorite_restaurant(restaurant)
+        current_user.profile.add_favorite_restaurant(restaurant)
         current_user.save()
 
     except Restaurant.DoesNotExist:
         raise Http404("Restaurant does not exist")
     
-    return HttpResponseRedirect(request.path_info)
+    return HttpResponseRedirect(reverse('campus:restaurant_list'))
 
 #4/2 Derrick
 def user_profile(request):

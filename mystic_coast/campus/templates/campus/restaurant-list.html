@@ -42,10 +42,10 @@
                               {% if user.is_staff %}
                                    <td><a href="{% url 'campus:delete_restaurant' restaurant.id %}">&#10005;</a></td>
                                    <td><a href="{% url 'campus:edit_restaurant' restaurant.id %}">&#9998;</a></td>
-                                   {% if restaurant in user.favorite_restaurant_list %}
-                              <td><a href="#">&#9733;</a></td>
+                                   {% if restaurant in user.profile.favorite_restaurant_list %}
+                                        <td><a href="#">&#9733;</a></td>
                                    {% else %}
-                              <td><a href="#">&#9734;</a></td>
+                                        <td><a href="{% url 'campus:add_favorite_restaurant' restaurant.id %}">&#9734;</a></td>
                                    {% endif  %}
                               {% endif %}
                               <td><a href="{% url 'campus:restaurant_detail' restaurant.id %}">{{restaurant.name}}</a></td>

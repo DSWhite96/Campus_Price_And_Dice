@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 import logging
 
 DEFAULT_HOURS = '8AM - 10PM'
@@ -113,11 +115,23 @@ class Restaurant(models.Model):
                     break
         return expensive_item
 
-class UserProfile(models.Model):
+
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     favorite_restaurant_list = models.ManyToManyField(Restaurant)
-    
+
+    def get_favorite_restaurants(self):
+        favorite_rest = self.favorite_restaurant_list.all()
+        return favorite_rest
+
     def add_favorite_restaurant(self, restaurant):
         self.favorite_restaurant_list.add(restaurant)
 
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
 
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
