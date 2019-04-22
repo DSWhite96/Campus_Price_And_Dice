@@ -39,8 +39,8 @@
                               {% if user.is_staff %}
                                    <td><a href="{% url 'campus:delete_restaurant' restaurant.id %}">&#10005;</a></td>
                                    <td><a href="{% url 'campus:edit_restaurant' restaurant.id %}">&#9998;</a></td>
+                                   
                               {% endif %}
-                              <td>&#9733;</td>
                               <td><a href="{% url 'campus:restaurant_detail' restaurant.id %}">{{restaurant.name}}</a></td>
                               <td>{{restaurant.location}}</td>
                               
