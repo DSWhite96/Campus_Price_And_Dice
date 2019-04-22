@@ -19,6 +19,7 @@
 
 {% block body %}
 <div id="app">
+    {% autoescape on %}
     <form method="POST" action="{% url 'campus:add_restaurant_action' %}" id="restaurant_form">
         <div class="container content-top">
             {% csrf_token %}
@@ -166,6 +167,7 @@
             </div>
         </div>
     </form>
+    {% endautoescape %}
 </div>
 
 <br>

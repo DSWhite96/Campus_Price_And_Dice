@@ -5,10 +5,13 @@
 '''
 
 def restaurant_names(first_name, second_name):
+
+    if first_name == '' or second_name == '':
+        return 'EMPTY_NAME'
+        
     if first_name == second_name:
         return 'DUPLICATE_NAME'
     
-    if first_name == '' or second_name == '':
-        return 'EMPTY_NAME'
+    
 
     return 'SUCCESS'
