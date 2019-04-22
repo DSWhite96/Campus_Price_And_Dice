@@ -12,8 +12,8 @@ def compare_restaurants(request, context = {}):
     restaurant_compare_list = []
     invalid_form = False
 
-    first_restaurant_name = request.POST.get('first_restaurant')
-    second_restaurant_name = request.POST.get('second_restaurant')
+    first_restaurant_name = request.POST.get('first_restaurant', '')
+    second_restaurant_name = request.POST.get('second_restaurant', '')
     
     try:
         first_restaurant = Restaurant.objects.get(name=first_restaurant_name)
@@ -28,6 +28,20 @@ def compare_restaurants(request, context = {}):
     except Restaurant.DoesNotExist:
         invalid_form = True
         name_error_list.append(second_restaurant_name)
+
+    first_name = first_restaurant.name
+    second_name = second_restaurant.name
+
+    name_status = verify_compare.restaurant_names(first_name, second_name)
+
+    if name_status != 'SUCCESS':
+        invalid_form = False
+        if name_status == 'DUPLICATE_NAME':
+            form_error = "Oops! You can't enter the same restaurant twice"
+        elif name_status == 'EMPTY_NAME':
+            form_error = "Oops! You can't leave a name blank"
+            
+        context['form_error'] = form_error
 
     if invalid_form:
         context['name_error_list'] = name_error_list

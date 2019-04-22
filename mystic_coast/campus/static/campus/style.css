@@ -2,6 +2,11 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.sub-heading {
+    font-size: 2rem;
+    font-weight: 100;
+}
+
 .map {
     height: 425px;
 }
