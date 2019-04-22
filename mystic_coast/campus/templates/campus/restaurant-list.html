@@ -26,6 +26,7 @@
                                    <th></th>
                                    <th></th>
                               {% endif %}
+                              <th>Favorite</th>
                               <th>Name</th>
                               <th>Location</th>
                               <th>Average Price</th>
@@ -39,18 +40,20 @@
                               {% if user.is_staff %}
                                    <td><a href="{% url 'campus:delete_restaurant' restaurant.id %}">&#10005;</a></td>
                                    <td><a href="{% url 'campus:edit_restaurant' restaurant.id %}">&#9998;</a></td>
-                                   
+                                   {% if restaurant in user.favorite_restaurant_list %}
+                              <td><a href="#">&#9733;</a></td>
+                                   {% else %}
+                              <td><a href="#">&#9734;</a></td>
+                                   {% endif  %}
                               {% endif %}
                               <td><a href="{% url 'campus:restaurant_detail' restaurant.id %}">{{restaurant.name}}</a></td>
                               <td>{{restaurant.location}}</td>
-                              
                               <td>
                                    {% if restaurant.get_average_price != 'N/A' %}
                                    ${{restaurant.get_average_price | floatformat:2}}
                                    {% else %}
                                    {{restaurant.get_average_price}}
                                    {% endif %}
-
                               </td>
                               <td>{{restaurant.get_cheapest_item}}</td>
                               <td>{{restaurant.get_most_expensive}}</td>
