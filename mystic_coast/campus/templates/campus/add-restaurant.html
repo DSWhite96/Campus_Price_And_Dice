@@ -140,7 +140,21 @@
                         name="restaurant_description" value="{{description}}">
                     <small class="text-muted">Enter a short description for your restaurant</small>
             </div>
-
+            {% block content %}
+            <div class="row pb-2">
+                    <div class="col-lg-12">
+                        <p class="text-center subheading">Restaurant Cover Image</p>
+                    </div>
+            </div>
+            <div class="col-lg-15">
+                    <label for = "restaurant_cover_image">Please select a file: </label>
+                    <form method="post" enctype="multipart/form-data">
+                    <input type="file" name="document" id="restaurant_cover_image">
+                        <button type="submit">Upload File</button>
+                    </form>
+                    <small class="text-muted">Upload a cover photo for your restaurant.</small>
+            </div>
+            {% endblock %}
             <div class="row">
                 <div class="col-lg-12 text-right">
                     {% if is_data_preloaded %}
