@@ -3,33 +3,40 @@ from django.shortcuts import render
 from django.urls import reverse
 from .models import Restaurant, Item, User
 from .verification import verify_restaurant, verify_item
+import random
 import json
+
 
 def index(request):
     context = {}
 
-    return render(request, 'campus/index.html', context)
+    return get_five(request)
+
 
 def restaurant_list(request):
     restaurant_list = Restaurant.objects.all()
     context = {'restaurant_list': restaurant_list}
     return render(request, 'campus/restaurant-list.html', context)
 
+
 def delete_restaurant(request, restaurant_id):
     restaurant = Restaurant.objects.get(id=restaurant_id)
     restaurant.delete()
     return HttpResponseRedirect(reverse('campus:restaurant_list'))
+
 
 def delete_item(request, restaurant_id, item_id):
     item = Item.objects.get(id=item_id)
     item.delete()
     return HttpResponseRedirect(reverse('campus:restaurant_detail', kwargs={'restaurant_id': restaurant_id}))
 
+
 def average_restaurant_list(request):
     #average_restaurant_list = Restaurant.objects.all()
     #context = {'average_restaurant_list': average_restaurant_list}
     print("test")
     #return render(request, 'campus/restaurant-list.html', context)
+
 
 def restaurant_detail(request, restaurant_id, context={}):
     
@@ -39,7 +46,6 @@ def restaurant_detail(request, restaurant_id, context={}):
         raise Http404("Restaurant does not exist")
 
     context['restaurant'] = restaurant
-
     
     return render(request, 'campus/restaurant-detail.html', context)
 
@@ -48,6 +54,7 @@ def restaurant_detail(request, restaurant_id, context={}):
     JSON-formatted string, parses it, and stores its individual
     attributes into a restaruant and saves it
 '''
+
 
 def add_restaurant_action(request, context = {}):
     data = request.POST
@@ -66,6 +73,7 @@ def add_restaurant_action(request, context = {}):
     location = data.get('restaurant_location', '')
     phone_number = data.get('phone_number', '')
     description = data.get('restaurant_description', '')
+    picture = data.get('document', '')
     
     sunday = data.get('sunday', '')
     monday = data.get('monday', '')
@@ -89,9 +97,7 @@ def add_restaurant_action(request, context = {}):
     context['friday'] = friday
     context['saturday'] = saturday
 
-    
-    is_prelim_info_correct = verify_restaurant.preliminary_info(name, 
-    location, phone_number)
+    is_prelim_info_correct = verify_restaurant.preliminary_info(name, location, phone_number)
     
     if not (is_prelim_info_correct == 'SUCCESS'):
         invalid_form = True
@@ -112,6 +118,7 @@ def add_restaurant_action(request, context = {}):
             restaurant.location = location
             restaurant.phone_number = phone_number
             restaurant.description = description
+            restaurant.picture = picture
 
             restaurant.sunday = data['sunday']
             restaurant.monday = data['monday']
@@ -134,14 +141,13 @@ def add_restaurant_action(request, context = {}):
             friday = data['friday']
             saturday = data['saturday']
 
-
     if invalid_form:
         return add_restaurant_page(request, context)
     else:
         
         if not is_save:
             restaurant = Restaurant(name=name, 
-                location=location, phone_number=phone_number, description=description, sunday=sunday, 
+                location=location, phone_number=phone_number, description=description, picture=picture, sunday=sunday,
                 monday=monday, tuesday=tuesday, wednesday=wednesday, thursday=thursday,
                 friday=friday, saturday=saturday)
 
@@ -149,7 +155,6 @@ def add_restaurant_action(request, context = {}):
 
         return HttpResponseRedirect(reverse('campus:restaurant_detail', 
         kwargs={'restaurant_id': restaurant.id}))
-
 
 
 def edit_restaurant(request, restaurant_id):
@@ -178,6 +183,7 @@ def edit_restaurant(request, restaurant_id):
     except Restaurant.DoesNotExist:
         restaurant = None
         return restaurant_list(request)
+
 
 def add_item(request):
     context = {}
@@ -257,24 +263,42 @@ def load_item(request, item_id, restaurant_id):
     return restaurant_detail(request, restaurant.id, context=context)
 
 
-def add_restaurant_page(request, context = {}):
+def add_restaurant_page(request, context={}):
     return render(request, 'campus/add-restaurant.html', context)
+
 
 def add_favorite_restaurant(request, restaurant_id):
     try:
-        restaurant = Restaurant.objects.get(id=restaurant_id)
-        current_user = request.user
+        restaurant = Restaurant.objects.get(pk=restaurant_id)
+
         #'root' to be replaced by session username
-        #current_user = User.objects.get(username='name') 
-        #current_profile.add_favorite_restaurant(restaurant)
-        current_user.profile.add_favorite_restaurant(restaurant)
+        current_user = User.objects.get(username='root') 
+        current_user.add_favorite_restaurant(restaurant)
         current_user.save()
+        print("favorited")
 
     except Restaurant.DoesNotExist:
         raise Http404("Restaurant does not exist")
-    
-    return HttpResponseRedirect(reverse('campus:restaurant_list'))
+
+    return render(request, 'campus/restaurant-list.html', {})
+
 
 #4/2 Derrick
 def user_profile(request):
     return render(request, 'campus/user_profile.html', {})
+
+def get_five(request):
+    list = Restaurant.objects.all()
+    unique_list = []
+    largest_index = len(list) - 1
+    for i in range(3):
+        #uwu
+        rand_index = random.randint(0, largest_index)
+
+        while list[rand_index] not in unique_list:
+            rand_index = random.randint(0, largest_index)
+
+        unique_list.append(list[rand_index])
+    context = {'restaurant_list': unique_list}
+    return render(request, 'campus/index.html', context)
+
