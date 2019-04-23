@@ -6,18 +6,14 @@ from .verification import verify_restaurant, verify_item
 import random
 import json
 
-
 def index(request):
     context = {}
+    return get_five_restaurants(request)
 
-    return get_five(request)
-
-
-def restaurant_list(request):
+def restaurant_list(request, context = {}):
     restaurant_list = Restaurant.objects.all()
-    context = {'restaurant_list': restaurant_list}
+    context['restaurant_list'] = restaurant_list
     return render(request, 'campus/restaurant-list.html', context)
-
 
 def delete_restaurant(request, restaurant_id):
     restaurant = Restaurant.objects.get(id=restaurant_id)
@@ -166,7 +162,7 @@ def edit_restaurant(request, restaurant_id):
         context['name'] = restaurant.name
         context['location'] = restaurant.location
         context['phone_number'] = restaurant.phone_number
-        context['restaurant_description'] = restaurant.description
+        context['description'] = restaurant.description
        
         context['sunday'] = restaurant.sunday
         context['monday'] = restaurant.monday
@@ -287,7 +283,7 @@ def add_favorite_restaurant(request, restaurant_id):
 def user_profile(request):
     return render(request, 'campus/user_profile.html', {})
 
-def get_five(request):
+def get_five_restaurants(request):
     list = Restaurant.objects.all()
     unique_list = []
     largest_index = len(list) - 1
