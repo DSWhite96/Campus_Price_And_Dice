@@ -14,7 +14,7 @@
     <div class="row">
             <div class="col-lg-6">
                 <ul class="list-unstyled">
-                    {% for restaurant in user.favorite_restaurant_list.all %}
+                    {% for restaurant in restaurant_list %}
                         <li>{{restaurant.name}}</li>
                     {% endfor %}
                 </ul>

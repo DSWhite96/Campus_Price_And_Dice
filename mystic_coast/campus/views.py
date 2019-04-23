@@ -294,11 +294,12 @@ def get_five(request):
     for i in range(3):
         #uwu
         rand_index = random.randint(0, largest_index)
-
-        while list[rand_index] not in unique_list:
+        
+        while list[rand_index] in unique_list:
             rand_index = random.randint(0, largest_index)
 
         unique_list.append(list[rand_index])
+
     context = {'restaurant_list': unique_list}
     return render(request, 'campus/index.html', context)
 
