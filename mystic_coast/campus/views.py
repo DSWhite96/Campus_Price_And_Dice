@@ -265,7 +265,7 @@ def add_restaurant_page(request, context={}):
     return render(request, 'campus/add-restaurant.html', context)
 
 
-def add_favorite_restaurant(request, restaurant_id):
+'''def add_favorite_restaurant(request, restaurant_id):
     try:
         restaurant = Restaurant.objects.get(pk=restaurant_id)
 
@@ -278,7 +278,7 @@ def add_favorite_restaurant(request, restaurant_id):
     except Restaurant.DoesNotExist:
         raise Http404("Restaurant does not exist")
 
-    return render(request, 'campus/restaurant-list.html', {})
+    return render(request, 'campus/restaurant-list.html', {})'''
 
 
 #4/2 Derrick

@@ -9,11 +9,20 @@
 {% block body %}
 <div class="container content-top">
     <div class="text-center">
-        <h3>Profile</h3>
+        <h3>User Profile</h3>
     </div>
-    <div class="text-center">
-        <h2>{{ user.username }}</h2>
-    </div>
+</div>
+<div class="row">
+    <p class="lead">Username: {{ user.username }}</p>
+</div>
+<div class="row">
+    <p class="lead">Name: {{ user.first_name }}</p>
+    <p class="lead">{{ user.last_name }}</p>
+</div>
+<div class="row">
+    <p class="lead">Email: {{ user.email }}</p>
+</div>
+    <!--
     <div class="row">
             <div class="col-lg-12">
                     <table class="table table-sm table-hover table-responsive table-striped">
@@ -38,5 +47,5 @@
                     </table>
             </div>
     </div>
-</div>
+    -->
 {% endblock %}
