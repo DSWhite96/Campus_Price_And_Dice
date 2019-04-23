@@ -289,15 +289,19 @@ def get_five_restaurants(request):
     list = Restaurant.objects.all()
     unique_list = []
     largest_index = len(list) - 1
-    for i in range(3):
-        #uwu
-        rand_index = random.randint(0, largest_index)
-        
-        while list[rand_index] in unique_list:
+    context = {}
+
+    if len(list) >= 5:
+        for i in range(3):
+            #uwu
             rand_index = random.randint(0, largest_index)
+            
+            while list[rand_index] in unique_list:
+                rand_index = random.randint(0, largest_index)
 
-        unique_list.append(list[rand_index])
+            unique_list.append(list[rand_index])
 
-    context = {'restaurant_list': unique_list}
+        context['restaurant_list'] = unique_list
+
     return render(request, 'campus/index.html', context)
 
