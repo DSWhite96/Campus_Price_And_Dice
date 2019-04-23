@@ -19,12 +19,14 @@ def restaurant_list(request, context = {}):
 def delete_restaurant(request, restaurant_id):
     restaurant = Restaurant.objects.get(id=restaurant_id)
     restaurant.delete()
+    
     return HttpResponseRedirect(reverse('campus:restaurant_list'))
 
 
 def delete_item(request, restaurant_id, item_id):
     item = Item.objects.get(id=item_id)
     item.delete()
+
     return HttpResponseRedirect(reverse('campus:restaurant_detail', kwargs={'restaurant_id': restaurant_id}))
 
 
@@ -51,8 +53,6 @@ def restaurant_detail(request, restaurant_id, context={}):
     JSON-formatted string, parses it, and stores its individual
     attributes into a restaruant and saves it
 '''
-
-
 def add_restaurant_action(request, context = {}):
     data = request.POST
     invalid_form = False
@@ -70,7 +70,6 @@ def add_restaurant_action(request, context = {}):
     location = data.get('restaurant_location', '')
     phone_number = data.get('phone_number', '')
     description = data.get('restaurant_description', '')
-    picture = data.get('document', '')
     
     sunday = data.get('sunday', '')
     monday = data.get('monday', '')
@@ -115,7 +114,6 @@ def add_restaurant_action(request, context = {}):
             restaurant.location = location
             restaurant.phone_number = phone_number
             restaurant.description = description
-            restaurant.picture = picture
 
             restaurant.sunday = data['sunday']
             restaurant.monday = data['monday']
@@ -144,7 +142,7 @@ def add_restaurant_action(request, context = {}):
         
         if not is_save:
             restaurant = Restaurant(name=name, 
-                location=location, phone_number=phone_number, description=description, picture=picture, sunday=sunday,
+                location=location, phone_number=phone_number, description=description, sunday=sunday,
                 monday=monday, tuesday=tuesday, wednesday=wednesday, thursday=thursday,
                 friday=friday, saturday=saturday)
 
@@ -176,6 +174,7 @@ def edit_restaurant(request, restaurant_id):
 
         context['is_data_preloaded'] = True
         context['restaurant_id'] = restaurant.id
+
         return render(request, 'campus/add-restaurant.html', context)   
 
     except Restaurant.DoesNotExist:
@@ -256,6 +255,7 @@ def load_item(request, item_id, restaurant_id):
     context['item_id'] = item.id
     context['item_name'] = item.name
     context['item_price'] = item.price
+    context['item_description'] = item.description
     context['is_item_prefilled'] = True
 
     return restaurant_detail(request, restaurant.id, context=context)
