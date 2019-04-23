@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from .models import Restaurant, Item, User
 from .verification import verify_restaurant, verify_item
+from .verification import save_restaurant_log
 import random
 import json
 
@@ -151,6 +152,7 @@ def add_restaurant_action(request, context = {}):
                 monday=monday, tuesday=tuesday, wednesday=wednesday, thursday=thursday,
                 friday=friday, saturday=saturday)
 
+        save_restaurant_log.log_restaurant(restaurant.name, restaurant.id, restaurant.phone_number, restaurant.location)
         restaurant.save()
 
         return HttpResponseRedirect(reverse('campus:restaurant_detail', 
