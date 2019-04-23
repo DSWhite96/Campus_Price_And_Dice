@@ -116,7 +116,7 @@ class Restaurant(models.Model):
         return expensive_item
 
 
-class Profile(models.Model):
+'''class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     favorite_restaurant_list = models.ManyToManyField(Restaurant)
 
@@ -134,4 +134,4 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+    instance.profile.save()'''
