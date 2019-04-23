@@ -7,11 +7,11 @@
     <!-- DERRICK:
         Reference login.html for 'content-top' class 
     -->
-    <h2>You have been logged out</h2>
+    <h3 class="content-top">You have been logged out</h3>
     <div class="border-top pt-3">
-            <small class="text-muted">
-                <a class="ml-2" href="{% url 'login' %}">Log back in</a>
-            </small>
+            
+        <a class="ml-2" style="font-size: 1rem"href="{% url 'login' %}">Log back in</a>
+            
     </div>
 </div>
 {% endblock %}
