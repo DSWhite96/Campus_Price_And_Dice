@@ -10,6 +10,7 @@ Restaurants/food items can be added/deleted/updated. A student can search for a 
 
 # Dependencies
 Django V2.2, Installation at: https://docs.djangoproject.com/en/2.2/topics/install/
+<br/>
 Django Crispy Forms: pip install --upgrade django-crispy-forms
 
 You may need to perform a migration after setup. Run: python manage.py migrate
