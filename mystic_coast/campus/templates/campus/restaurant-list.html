@@ -2,13 +2,30 @@
 {% block title %} List of Restaurants {% endblock %}
 {% block restaurant_list_link %}
 <li class="nav-item active">
-     <a class="nav-link active" href="{% url 'campus:restaurant_list' %}">Restaurants</a>
+     <a class="nav-link active" href="{% url 'campus:restaurant_list' %}">
+     Restaurants <i class="fas fa-utensils"></i></p></a>
 </li>
 {% endblock%}
 
 {% block body %}
 <div class="container content-top">
      <br>
+
+     <h3 class="text-center">
+          Restaurant List  <i class="fas fa-hamburger"></i>
+     </h3>
+     <br>
+     <div class="row">
+          <div class="col-lg-11">
+               <p class="lead">
+                    Feel free to look through any restaurants on campus! Clicking on a restaurant's 
+                    name will take you to it's page, where you can see more info on its food-items and 
+                    statistics!
+               </p>
+          </div>
+     </div>
+     
+
      <div class="row">
           <div class="col-lg-12">
                <table class="table table-large 
@@ -32,12 +49,6 @@
                               {% if user.is_staff %}
                                    <td><a href="{% url 'campus:delete_restaurant' restaurant.id %}">&#10005;</a></td>
                                    <td><a href="{% url 'campus:edit_restaurant' restaurant.id %}">&#9998;</a></td>
-                                   <!--
-                                   {% if restaurant in user.profile.favorite_restaurant_list %}
-                                        <td><a href="#">&#9733;</a></td>
-                                   {% else %}
-                                        <td><a href="{% url 'campus:add_favorite_restaurant' restaurant.id %}">&#9734;</a></td>
-                                   {% endif  %}-->
                               {% endif %}
                               <td><a href="{% url 'campus:restaurant_detail' restaurant.id %}">{{restaurant.name}}</a></td>
                               <td>{{restaurant.location}}</td>

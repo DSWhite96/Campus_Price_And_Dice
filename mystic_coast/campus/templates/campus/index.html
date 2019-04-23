@@ -2,7 +2,8 @@
 {% block title %} Campus Price and Dice {% endblock %}
 {% block dashboard_link %}
 <li class="nav-item active">
-    <a class="nav-link active" href="{% url 'campus:index' %}">Dashboard<span class="sr-only">(current)</span></a>
+    <a class="nav-link active" href="{% url 'campus:index' %}">
+    Dashboard <i class="fas fa-tachometer-alt"></i><span class="sr-only">(current)</span></a>
 </li>
 {% endblock %}
 
@@ -11,14 +12,26 @@
 <div class="container content-top">
 
     <h4>Welcome to Campus, Price and Dice!</h4>
-    
+    <br>
+    <div class="row">
+        <div class="col-lg-9">
+            <p class="lead">
+                Welcome to the dashboard! To get started, browse through all restaurants on campus,
+                by clicking on the 'Restaurants' link in the navbar. If you're already familiar with several
+                restaurants on campus, click on 'Compare' and enter their names!
+            </p>
+        </div>
+    </div>
+    <br>
     <h4>Have you visited these restaurants?</h4>
     <br>
     <div class="row">
             <div class="col-lg-6">
                 <ul class="list-unstyled">
                     {% for restaurant in restaurant_list %}
-                        <li>{{restaurant.name}}</li>
+                        <li class="lead">
+                        <a href="{% url 'campus:restaurant_detail' restaurant.id %}">
+                        {{restaurant.name}} - {{restaurant.location}}</a></li>
                     {% endfor %}
                 </ul>
                 
