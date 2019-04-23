@@ -291,7 +291,7 @@ def get_five_restaurants(request):
     largest_index = len(list) - 1
     context = {}
 
-    if len(list) >= 5:
+    if len(list) >= 3:
         for i in range(3):
             #uwu
             rand_index = random.randint(0, largest_index)
