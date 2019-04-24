@@ -1,0 +1,25 @@
+{% extends "./base.html" %}
+{% block title %} User Profile {% endblock %}
+{% block user_profile_link %}
+<li class="nav-item active">
+    <a class="nav-link active" href="{% url 'campus:user_profile' %}">
+    Profile <i class="fas fa-users"></i></a>
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="text-center content-top">
+        <h3>User Profile</h3>
+    </div>
+    <div class="row">
+        <p class="lead">Username: {{user.username}}</p>
+    </div>
+    <div class="row">
+        <p class="lead">Name: {{ user.first_name }} {{user.last_name}}</p>
+    </div>
+    <div class="row">
+        <p class="lead">Email: {{ user.email }}</p>
+    </div>
+</div>
+{% endblock %}

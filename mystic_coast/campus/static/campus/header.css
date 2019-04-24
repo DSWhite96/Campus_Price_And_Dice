@@ -1,0 +1,14 @@
+/*
+    header.css
+*/
+div.header-dark {
+    background-color: black;
+    height: 5rem;
+}
+
+div.header-dark div.header-text {
+    color: white;
+    font-size: 2rem;
+    margin-left: 3rem;
+    padding-top: 1rem;
+}

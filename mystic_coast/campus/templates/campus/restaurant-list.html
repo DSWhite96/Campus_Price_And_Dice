@@ -1,0 +1,69 @@
+{% extends "./base.html" %}
+{% block title %} List of Restaurants {% endblock %}
+{% block restaurant_list_link %}
+<li class="nav-item active">
+     <a class="nav-link active" href="{% url 'campus:restaurant_list' %}">
+     Restaurants <i class="fas fa-utensils"></i></p></a>
+</li>
+{% endblock%}
+
+{% block body %}
+<div class="container content-top">
+     <h3 class="text-center">
+          Restaurant List  <i class="fas fa-hamburger"></i>
+     </h3>
+     <br>
+     <div class="row">
+          <div class="col-lg-11">
+               <p class="lead">
+                    Feel free to look through any restaurants on campus! Clicking on a restaurant's 
+                    name will take you to it's page, where you can see more info on its food-items and 
+                    statistics!
+               </p>
+          </div>
+     </div>
+     
+
+     <div class="row">
+          <div class="col-lg-12">
+               <table class="table table-large 
+               table-weight-low table-hover table-responsive table-striped">
+                    <thead>
+                         <tr class="table-success">
+                              {% if user.is_staff %}
+                                   <th></th>
+                                   <th></th>
+                              {% endif %}
+                              <th>Name</th>
+                              <th>Location</th>
+                              <th>Average Price</th>
+                              <th>Least-Expensive Item</th>
+                              <th>Most-Expensive Item</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                         {% for restaurant in restaurant_list %}
+                         <tr>
+                              {% if user.is_staff %}
+                                   <td><a href="{% url 'campus:delete_restaurant' restaurant.id %}">&#10005;</a></td>
+                                   <td><a href="{% url 'campus:edit_restaurant' restaurant.id %}">&#9998;</a></td>
+                              {% endif %}
+                              <td><a href="{% url 'campus:restaurant_detail' restaurant.id %}">{{restaurant.name}}</a></td>
+                              <td>{{restaurant.location}}</td>
+                              <td>
+                                   {% if restaurant.get_average_price != 'N/A' %}
+                                   ${{restaurant.get_average_price | floatformat:2}}
+                                   {% else %}
+                                   {{restaurant.get_average_price}}
+                                   {% endif %}
+                              </td>
+                              <td>{{restaurant.get_cheapest_item}}</td>
+                              <td>{{restaurant.get_most_expensive}}</td>
+                         </tr>
+                         {% endfor %}
+                    </tbody>
+               </table>
+          </div>
+     </div>
+</div>
+{% endblock %}

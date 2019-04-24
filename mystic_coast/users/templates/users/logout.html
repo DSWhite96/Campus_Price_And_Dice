@@ -1,0 +1,17 @@
+{% extends "campus/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Logout {% endblock %}
+
+{% block body %}
+<div class="container">
+    <!-- DERRICK:
+        Reference login.html for 'content-top' class 
+    -->
+    <h3 class="content-top">You have been logged out</h3>
+    <div class="border-top pt-3">
+            
+        <a class="ml-2" style="font-size: 1rem"href="{% url 'login' %}">Log back in</a>
+            
+    </div>
+</div>
+{% endblock %}

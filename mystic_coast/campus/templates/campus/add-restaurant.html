@@ -1,0 +1,168 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %} Add a Restaurant {% endblock %}
+
+{% block include_vue %} 
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+{% endblock %}
+
+{% block  configure_dropdown_link %}
+<li class="nav-item dropdown active">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Configure <i class="fas fa-tools"></i>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <a class="dropdown-item" href="{% url 'campus:add_restaurant' %}">Create</a>
+    <a class="dropdown-item" href="#">Modify</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<div id="app">
+    {% autoescape on %}
+    <form method="POST" action="{% url 'campus:add_restaurant_action' %}" id="restaurant_form">
+        <div class="container content-top">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="page-header text-center">Create a Restaurant</p>
+                </div>
+            </div>
+            <br>
+            {% if form_error %}
+            <div class="row"> 
+               <div class="col-lg-6 offset-lg-3">
+                    <div class="alert alert-danger">
+                            {{ form_error }}
+                    </div>            
+                </div>
+            </div>
+            <br>
+            {% endif %}
+            <div class="row pb-2">
+                <div class="col-lg-12">
+                    <p class="text-center subheading">Preliminary Info</p>
+                </div>
+            </div>
+            {% if is_data_preloaded %}
+                <input type="hidden" name="restaurant_id" value={{restaurant_id}}>
+            {% endif %}
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for = "restaurant_name">Name</label>
+                    <input type="text" class="form-control" id="restaurant_name" 
+                        name="restaurant_name" value="{{name}}">
+                    <small class="text-muted">Enter your restaurant's name</small>
+                </div>
+                <div class="col-lg-6">
+                    <label for = "restaurant_location">Location</label>
+                    <input type="text" class="form-control" id="restaurant_location" 
+                        name="restaurant_location" value="{{location}}">
+                    <small class="text-muted">Ex. 123 Main St, New York, NY</small>
+                </div>
+            </div>
+            <br>
+            <div class="row pb-2">
+                <div class="col-lg-6">
+                    <label for = "phone_number">Phone Number</label>
+                    <input type="text" class="form-control" id="phone_number" 
+                        name="phone_number" value="{{phone_number}}">
+                    <small class="text-muted">Written as (xxx) xxx-xxxx</small>
+                </div>
+            </div>
+            <br>
+            <div class="row pb-2">
+                <div class="col-lg-12">
+                    <p class="text-center subheading">Hours of Operation</p>
+                    <p class="lead text-muted text-center">Format: 8:00AM - 8:00PM</p>
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-lg-6">
+                    <label for='sunday'>Sunday</label>
+                    <input type='text' class="form-control" 
+                        name='sunday' id='sunday'
+                        value="{{sunday}}">
+                </div>
+                <div class="col-lg-6">
+                    <label for="monday">Monday</label>
+                    <input type="text" class="form-control" 
+                        name="monday" id="monday"
+                        value="{{monday}}">
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-lg-6">
+                    <label for='tuesday'>Tuesday</label>
+                    <input type='text' class="form-control" 
+                        name='tuesday' id='tuesday'
+                        value="{{tuesday}}">
+                </div>
+                <div class="col-lg-6">
+                    <label for="wednesday">Wednesday</label>
+                    <input type="text" class="form-control" 
+                        name="wednesday" id="wednesday"
+                        value="{{wednesday}}">
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-lg-6">
+                    <label for='thursday'>Thursday</label>
+                    <input type='text' 
+                        class="form-control" 
+                        name='thursday' id='thursday'
+                        value="{{thursday}}">
+                </div>
+                <div class="col-lg-6">
+                    <label for="friday">Friday</label>
+                    <input type="text" 
+                        class="form-control" 
+                        name="friday" id="friday"
+                        value="{{friday}}">
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col-lg-6">
+                    <label for='saturday'>Saturday</label>
+                    <input type='text' 
+                        class="form-control" 
+                        name='saturday' id='saturday'
+                        value="{{saturday}}">
+                </div>
+            </div>
+            <br>
+            <div class="row pb-2">
+                <div class="col-lg-12">
+                    <p class="text-center subheading">Restaurant Description</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-7">
+                    <label for = "restaurant_description">Description</label>
+                    <textarea type="comment" class="form-control" id="restaurant_description" 
+                        name="restaurant_description">{{description}}</textarea>
+                    <small class="text-muted">Talk about your restaurant here!</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-right">
+                    {% if is_data_preloaded %}
+                        <button type="submit" class="btn btn-link">Save</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-link">Create</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+    {% endautoescape %}
+</div>
+
+<br>
+<br>
+<script src="{% static 'hours-of-operation.js' %}" type='module'></script>
+<script src="{% static 'add-restaurant.js' %}" type='module'></script>
+{% endblock %}
+
+
+

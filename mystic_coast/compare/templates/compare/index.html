@@ -1,0 +1,92 @@
+{% extends "campus/base.html" %}
+{% block title %} Compare Restaurants {% endblock %}
+{% block compare_restaurants_link %}
+<li class="nav-item active">
+    <a class="nav-link" href="{% url 'compare:index' %}">
+    Compare <i class="fas fa-money-bill"></i></a>
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="container content-top">
+    <div class="text-center">
+        <h3>Compare Restaurants</h3>
+    </div>
+    <br>
+    {% comment %} {% if form_error %}
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="alert alert-danger">
+                {{ form_error }}
+            </div>
+        </div>
+    </div>
+    {% endif %} {% endcomment %}
+    <form action = "{% url 'compare:compare_restaurants' %}" method="POST">
+        {% csrf_token %}
+        {% autoescape on %}
+        <div class="row content-top">
+            <div class="col-lg-6">
+                <input type="text" 
+                class="form-control blue-input textbox-large round-field-1 float-left" 
+                id = "first_restaurant" name="first_restaurant" placeholder = "Restaurant 1">
+            </div>
+            <div class="col-lg-6">
+                <input type="text" 
+                class="form-control blue-input textbox-large round-field-1 float-right" 
+                id = "second_restaurant" name="second_restaurant" placeholder="Restaurant 2">
+            </div>
+        </div>
+        {% endautoescape %}
+        <div class="row content-top">
+            <div class="col-lg-12">
+                <div class="text-center">
+                    <input type="submit" 
+                    class="btn-hover color-1" 
+                    value="Compare">
+                </div>
+            </div>
+        </div>
+    </form>
+   
+    
+    {% if not form_error %}
+        <div class="row content-top">
+            {% for restaurant in restaurant_compare_list %}
+                {% if forloop.counter == 1%}
+                <div class="col-lg-6 text-left">
+                {% else %}
+                <div class="col-lg-6 text-right">
+                {% endif %}
+                <h3>{{ restaurant.name }}</h3>
+                <p class="lead">{{ restaurant.location }}</p>
+                <p class="lead">Average Price:
+                    {% if restaurant.get_average_price == 'N/A' %}
+                        {{restaurant.get_average_price}}
+                    {% else %}
+                        ${{ restaurant.get_average_price|floatformat:2 }}
+                    {% endif %}
+                </p>
+                <p class="lead">Min Price: 
+                    {% if restaurant.get_min_price == 'N/A' %}
+                        {{ restaurant.get_min_price }}
+                    {% else %}
+                        ${{ restaurant.get_min_price|floatformat:2 }}
+                    {% endif %}
+                </p>
+                <p class="lead">Max Price: 
+                    {% if restaurant.get_max_price == 'N/A' %}
+                        {{ restaurant.get_max_price }}
+                    {% else %}
+                        ${{ restaurant.get_max_price |floatformat:2}}
+                    {% endif %}
+                </p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

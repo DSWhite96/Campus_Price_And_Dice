@@ -1,0 +1,247 @@
+{% extends "./base.html" %}
+{% block title %} Restaurant Detail {% endblock %}
+{% block restaurant_detail_list}
+{% load staticfiles %}
+{% block body %}
+
+<div class="container content-top">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>{{restaurant.name}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <p class="lead">{{restaurant.location}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <p class="lead" >{{restaurant.phone_number}}</p>
+        </div>
+    </div>
+    {% if restaurant.description != 'No description added' %}
+    <div class="row">
+        <div class="col-lg-6">
+                <p>{{restaurant.description}}</p>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-lg-2">
+            S: {{restaurant.sunday}}
+        </div>
+        <div class="col-lg-2">
+            M: {{restaurant.monday}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            T: {{restaurant.tuesday}}
+        </div>
+        <div class="col-lg-2">
+            W: {{restaurant.wednesday}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            Th: {{restaurant.thursday}}
+        </div>
+        <div class="col-lg-2">
+            F: {{restaurant.friday}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            S: {{restaurant.saturday}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <p class="lead">Average Price: 
+                {% if restaurant.get_average_price != 'N/A' %}
+                ${{restaurant.get_average_price | floatformat:2}}
+                {% else %}
+                {{restaurant.get_average_price}}
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-lg-3">
+            <p class="lead">Median Price: 
+                {% if restaurant.get_average_price != 'N/A' %}
+                ${{restaurant.get_average_price | floatformat:2}}
+                {% else %}
+                {{restaurant.get_average_price}}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <p class="lead">Lowest Price: 
+                {% if restaurant.get_min_price != 'N/A' %}
+                ${{restaurant.get_min_price | floatformat:2}}
+                {% else %}
+                {{restaurant.get_min_price}}
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-lg-3">
+            <p class="lead">Highest Price: 
+                {% if restaurant.get_max_price != 'N/A' %}
+                ${{restaurant.get_max_price | floatformat:2}}
+                {% else %}
+                {{restaurant.get_max_price}}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="map" class="map"></div>
+        </div>
+    </div>
+    <hr>
+    {% if user.is_staff %}
+        <div class="row">
+            <div class="col-lg-6">
+                <p class="sub-heading">
+                    Admin Portal: Food Items
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <p class="lead">
+                    Hello {{ user.first_name }}! Use the form below
+                    to add (or edit) your restaurant's items
+                </p>
+            </div>
+        </div>
+        {% if form_error %}
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="alert alert-danger">
+                    {{ form_error }}
+                </div>
+            </div>
+        </div>
+        <br>
+        {% endif %}
+        
+        <form method="POST" action="{% url 'campus:add_item' %}">
+            {% csrf_token %}
+            <input type="hidden" name="restaurant_id" value="{{restaurant.id}}">
+            {% if is_item_prefilled %}
+            <input type="hidden" name="item_id" value="{{item_id}}">
+            {% endif %}
+            <div class="row">
+                <div class="col-lg-3">
+                    <label for="item_name">Name</label>
+                    <input type="text" class="form-control blue-input" 
+                    name="item_name" id="item_name" value="{{item_name}}">
+                </div>
+                <div class="col-lg-3">
+                    <label for="item_price">Price</label>
+                    <input type="number" class="form-control blue-input"
+                    name="item_price" id="item_price" value="{{item_price}}">
+                </div>
+                <div class="col-lg-3">
+                    <label for="item_description">Description</label>
+                    <input type="text" class="form-control blue-input"
+                    name="item_description" id="item_description" value="{{item_description}}">
+                </div>
+                <div class="col-lg-2">
+                    <label for="add_item_btn"><br></label>
+                    {% if is_item_prefilled %}
+                    <input type="submit" class="btn btn-outline-primary form-control"
+                    id="add_item_btn" value="Save Changes">
+                    {% else %}
+                    <input type="submit" class="btn btn-outline-primary form-control"
+                    id="add_item_btn" value="Add Item">
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+        <br>
+    {% endif %}
+    
+    <br>
+    <p class="sub-heading">Menu <i class="fas fa-utensils"></i></p>
+    <div class="row">
+        <div class="col-lg-12">
+                <table class="table table-weight-low
+                    table-large table-hover table-responsive table-striped">
+                    <thead>
+                        <tr class="table-primary">
+                            {% if user.is_staff %}
+                                <th></th>
+                                <th></th>
+                            {% endif %}
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in restaurant.item_list.all %}
+                        <tr>
+                            {% if user.is_staff %}
+                                <td><a href="{% url 'campus:delete_item' restaurant.id item.id %}">&#10005;</a></td>
+                                <td><a href="{% url 'campus:load_item' item.id restaurant.id %}">&#9998;</a></td>
+                            {% endif %}
+                            <td>{{item.name}}</td>
+                            <td>${{item.price | floatformat:2}}</td>
+                            <td>{{item.description}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    </div>
+
+    <input type="hidden" id="location" value="{{ restaurant.location }}">
+
+    <br>
+
+    <script>
+            function initMap() {
+                var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: {lat: -34.397, lng: 150.644}
+                });
+                var geocoder = new google.maps.Geocoder();
+
+
+                geocodeAddress(geocoder, map);
+              
+            }
+      
+            function geocodeAddress(geocoder, resultsMap) {
+              var address = document.getElementById('location').value;
+              geocoder.geocode({'address': address}, function(results, status) {
+                if (status === 'OK') {
+                  resultsMap.setCenter(results[0].geometry.location);
+                  var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                  });
+                } else {
+                  alert('Geocode was not successful for the following reason: ' + status);
+                }
+              });
+            }
+    </script>
+      
+   
+    <script 
+        async defer 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnqYLdmY8QTO6Ua2bh4I9YLQlXFPudgdg&callback=initMap" type="text/javascript">
+    </script>   
+</div>
+{% endblock %}

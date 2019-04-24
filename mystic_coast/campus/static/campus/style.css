@@ -1,0 +1,64 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.sub-heading {
+    font-size: 2rem;
+    font-weight: 100;
+}
+
+.map {
+    height: 425px;
+}
+
+.page-header {
+    font-size: 2rem;
+    font-weight: normal;
+}
+
+.subheading {
+    font-size: 1.2rem;
+}
+
+.selector-for-some-widget {
+    box-sizing: content-box;
+}
+
+.content-top {
+    margin-top: 3rem;
+}
+
+.content-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.textbox-large {
+    width: 70%;
+    height: 3rem;
+    font-size: 1.5rem;
+}
+
+.round-field-2 {
+    border-radius: 3rem;
+}
+
+.round-field-1 {
+    border-radius: 1rem;
+}
+
+.wide-button {
+    width: 13rem;
+}
+
+.aligned-input {
+    display: inline-block !important;
+}
+
+.label-right {
+    padding-left: 10.2rem;
+}
+
+.alert {
+    margin: auto;
+}
