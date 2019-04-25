@@ -6,24 +6,29 @@
 <div class="container">
     <form method="POST">
         {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4 content-top">Sign Up Now!</legend>
-            <!-- DERRICK:
-                Reference login.html for 'content-top' class 
-            -->
-            {{ form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <!-- DERRICK:
-                Reference the comment from login.html, same fix here 
-            -->
-            <button class="btn btn-out-info" type="sumbit">Submit</button>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class="content-top">Let's get you signed up!</h3>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+                {{ form | crispy }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                 <button class="btn btn-outline-primary" type="sumbit">Create Account</button>
+            </div>
         </div>
     </form>
+    <br>
     <div class="border-top pt-3">
-            <small class="text-muted">
-                Already have an account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
-            </small>
+        <small class="text-muted">
+            Already have an account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+        </small>
     </div>
 </div>
+<br>
 {% endblock %}

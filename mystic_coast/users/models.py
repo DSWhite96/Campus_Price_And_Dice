@@ -6,7 +6,7 @@ from django.contrib.auth.models import (
 
 class UserManager(BaseUserManager):
     def create_user(self, username, first_name, last_name, 
-        email, date_of_birth, password=None):
+        email, date_of_birth, is_maintainer=False, password=None):
 
         if not email:
             raise ValueError("Oops! Looks like you didn't write in your email")
@@ -50,6 +50,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     is_maintainer = models.BooleanField(
+        verbose_name='Testing',
         default='False'
     )
 

@@ -8,13 +8,18 @@ from django import forms
 class UserCreationForm(forms.ModelForm):
 
     first_password = forms.CharField(label='Password', widget=forms.PasswordInput)
-    conf_password = forms.CharField(label='Confirm Your Password!', widget=forms.PasswordInput)
+    conf_password = forms.CharField(label='Confirm Your Password', widget=forms.PasswordInput)
+    is_maintainer_chkbox = forms.BooleanField(
+        label='Do you own/manage a restaurant?', 
+        widget=forms.CheckboxInput,
+        required=False
+    )
 
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 
             'last_name', 'date_of_birth', 'first_password',
-            'conf_password', 'is_maintainer')
+            'conf_password', 'is_maintainer_chkbox')
 
     def verify_password_entries(self):
         first_password = self.cleaned_data.get("first_password")
@@ -28,6 +33,7 @@ class UserCreationForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["first_password"])
+        user.is_maintainer = self.cleaned_data["is_maintainer_chkbox"]
         if commit:
             user.save()
         return user
@@ -78,5 +84,5 @@ class UserAdmin(BaseUserAdmin):
 #admin.site.unregister(Group)
 '''
 
-
+admin.site.register(User)
 

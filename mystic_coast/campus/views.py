@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
+from django.contrib import auth
 from django.urls import reverse
 from .models import Restaurant, Item, User
 from .verification import verify_restaurant, verify_item
@@ -145,8 +146,11 @@ def add_restaurant_action(request, context = {}):
                 location=location, phone_number=phone_number, description=description, sunday=sunday,
                 monday=monday, tuesday=tuesday, wednesday=wednesday, thursday=thursday,
                 friday=friday, saturday=saturday)
+            
+            maintainer = auth.get_user(request)
+            restaurant.maintainer = maintainer
 
-        save_restaurant_log.log_restaurant(restaurant.name, restaurant.id, restaurant.phone_number, restaurant.location)
+        #save_restaurant_log.log_restaurant(restaurant.name, restaurant.id, restaurant.phone_number, restaurant.location)
         restaurant.save()
 
         return HttpResponseRedirect(reverse('campus:restaurant_detail', 

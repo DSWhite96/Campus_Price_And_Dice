@@ -57,7 +57,7 @@
                     </li>
                     {% endblock %}
 
-                    {% if user.is_staff %}
+                    {% if user.is_staff or user.is_admin or user.is_maintainer %}
                         {% block  configure_dropdown_link %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
