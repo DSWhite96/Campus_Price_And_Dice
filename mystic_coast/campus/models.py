@@ -2,9 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.conf import settings
 import logging
 
-DEFAULT_HOURS = '8AM - 10PM'
+DEFAULT_HOURS = '8:00AM - 10:00PM'
 
 class Item(models.Model):
     price = models.FloatField(default=0)
@@ -16,6 +17,13 @@ class Restaurant(models.Model):
     location = models.CharField(max_length=200)
     phone_number = models.CharField(max_length=20, default='(xxx) xxx-xxxx')
     description = models.CharField(max_length=300, default='No description added')
+    
+    #User that owns the restaurant
+    maintainer = models.ForeignKey( 
+        default=None,
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
 
     #Ideally, should convert this to JSONField
     #Only a temporary solution for the time being
