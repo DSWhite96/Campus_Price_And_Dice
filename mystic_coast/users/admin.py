@@ -42,12 +42,22 @@ class UserCreationForm(forms.ModelForm):
 class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
+    new_password = forms.CharField(label='New Password', widget=forms.PasswordInput)
+    new_password_conf = forms.CharField(label='Confirm your New Password', widget=forms.PasswordInput)
+
+    '''is_maintainer_chkbox = is_maintainer_chkbox = forms.BooleanField(
+        label='Do you own/manage a restaurant?', 
+        widget=forms.CheckboxInput,
+        required=False
+    )'''
+
     class Meta:
         model = User
         fields = ('email', 'password', 'date_of_birth', 'is_maintainer')
 
     def clean_password(self):
         return self.initial["password"]
+
 
 '''
 class UserAdmin(BaseUserAdmin):

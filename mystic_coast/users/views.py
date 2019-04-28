@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from users.admin import UserCreationForm
+from users.admin import UserCreationForm, UserChangeForm
 
 def register(request):
     if request.method == 'POST':
@@ -14,3 +14,10 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'users/register.html', {'form':form})
 
+def load_profile(request):
+    form = UserChangeForm()
+    context = {
+        'form': form
+    }
+
+    return render(request, 'users/edit-profile.html', context)
