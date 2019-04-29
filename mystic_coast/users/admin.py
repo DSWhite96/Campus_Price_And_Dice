@@ -2,8 +2,11 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Row, Column
 from users.models import User
 from django import forms
+
 
 class UserCreationForm(forms.ModelForm):
 
@@ -40,25 +43,21 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField()
+    
+    #password = ReadOnlyPasswordHashField()
 
     new_password = forms.CharField(label='New Password', widget=forms.PasswordInput)
     new_password_conf = forms.CharField(label='Confirm your New Password', widget=forms.PasswordInput)
 
-    '''is_maintainer_chkbox = is_maintainer_chkbox = forms.BooleanField(
-        label='Do you own/manage a restaurant?', 
-        widget=forms.CheckboxInput,
-        required=False
-    )'''
-
     class Meta:
         model = User
-        fields = ('email', 'password', 'date_of_birth', 'is_maintainer')
+        fields = ('username', 'email', 'date_of_birth', 'new_password', 
+        'new_password_conf', 'is_maintainer')
 
     def clean_password(self):
         return self.initial["password"]
 
-
+    
 '''
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances

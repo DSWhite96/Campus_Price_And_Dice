@@ -50,7 +50,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     is_maintainer = models.BooleanField(
-        verbose_name='Testing',
+        verbose_name='Do you own/manage a restaurant?',
         default='False'
     )
 

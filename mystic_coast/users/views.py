@@ -15,7 +15,7 @@ def register(request):
     return render(request, 'users/register.html', {'form':form})
 
 def load_profile(request):
-    form = UserChangeForm()
+    form = UserChangeForm(instance=request.user)
     context = {
         'form': form
     }
