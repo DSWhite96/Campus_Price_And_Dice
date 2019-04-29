@@ -46,16 +46,20 @@ class UserChangeForm(forms.ModelForm):
     
     #password = ReadOnlyPasswordHashField()
 
-    new_password = forms.CharField(label='New Password', widget=forms.PasswordInput)
-    new_password_conf = forms.CharField(label='Confirm your New Password', widget=forms.PasswordInput)
-
     class Meta:
         model = User
-        fields = ('username', 'email', 'date_of_birth', 'new_password', 
-        'new_password_conf', 'is_maintainer')
+        fields = ('username', 'email', 'date_of_birth', 'is_maintainer')
 
     def clean_password(self):
         return self.initial["password"]
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+
+        if commit:
+            user.save()
+
+        return user
 
     
 '''

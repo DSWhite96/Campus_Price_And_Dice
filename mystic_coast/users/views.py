@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.urls import reverse
 from django.contrib import messages
 from users.admin import UserCreationForm, UserChangeForm
 
@@ -21,3 +23,13 @@ def load_profile(request):
     }
 
     return render(request, 'users/edit-profile.html', context)
+
+def save_profile(request):
+
+    if request.method == 'POST':
+        form = UserChangeForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+
+        return HttpResponseRedirect(reverse('campus:user_profile'))

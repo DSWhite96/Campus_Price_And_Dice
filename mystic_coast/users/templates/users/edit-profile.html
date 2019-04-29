@@ -21,7 +21,8 @@
         </div>
     </div>
     <br>
-    <form action="" method="POST">
+    <form action="{% url 'users:save_profile' %}" method="POST">
+        {% csrf_token %}
         <div class="row">
             <div class="col-lg-6">
                 {{form | crispy}}
