@@ -47,7 +47,6 @@ def change_password(request):
         else:
             context['form'] = form
           
-    
     else:
         form = PasswordChangeForm(request.user)
         context['form'] = form

@@ -23,11 +23,43 @@
     <br>
     <form action="{% url 'users:edit_profile' %}" method="POST">
         {% csrf_token %}
+      
         <div class="row">
-            <div class="col-lg-6">
-                {{form | crispy}}
+            <div class="col-lg-4">
+                {{form.username.label_tag}}
+                {{form.username}}
+            </div>
+            <div class="col-lg-4">
+                {{form.email.label_tag}}
+                {{form.email}}
             </div>
         </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-4">
+                {{form.first_name.label_tag}}
+                {{form.first_name}}
+            </div>
+            <div class="col-lg-4">
+                {{form.last_name.label_tag}}
+                {{form.last_name}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-4">
+                {{form.date_of_birth.label_tag}}
+                {{form.date_of_birth}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+             <div class="col-lg-4">
+                {{form.is_maintainer}}
+                {{form.is_maintainer.label_tag}}
+            </div>
+        </div>
+        <br>
         <div class="row">
             <div class="col-lg-6">
                 <button type="submit" class="btn btn-outline-info">Save Changes</button>

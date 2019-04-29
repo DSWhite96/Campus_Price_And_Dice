@@ -4,6 +4,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Row, Column
+from django.utils.translation import gettext_lazy as _
 from users.models import User
 from django import forms
 
@@ -48,7 +49,33 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'date_of_birth', 'is_maintainer')
+        fields = ('username', 'email', 'first_name', 'last_name', 
+                'date_of_birth', 'is_maintainer')
+        labels = {
+            'is_maintainer': _('Do you own/manage a restaurant?'),
+        }
+        widgets = {
+            'is_maintainer': forms.CheckboxInput(attrs = {
+                
+            }),
+            'username': forms.TextInput(attrs = {
+                'class': 'form-control'
+            }),
+            'email': forms.EmailInput(attrs = {
+                'class': 'form-control'
+            }),
+            'first_name': forms.TextInput(attrs = {
+                'class': 'form-control'
+            }),
+            'last_name': forms.TextInput(attrs = {
+                'class': 'form-control'
+            }),
+            'date_of_birth': forms.DateInput(attrs = {
+                'class': 'form-control'
+            }),
+        
+        }
+
 
     def clean_password(self):
         return self.initial["password"]

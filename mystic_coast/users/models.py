@@ -56,7 +56,7 @@ class User(AbstractBaseUser):
 
     username = models.CharField(
         max_length=100,
-        unique=True
+        unique=True,
     )
 
     email = models.EmailField(
