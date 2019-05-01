@@ -13,10 +13,17 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
-            return redirect('login')
+
+            return HttpResponseRedirect(reverse('login'))
     else:
         form = UserCreationForm()
-    return render(request, 'users/register.html', {'form':form})
+
+        context = {
+            'form': form,
+            'user_exists': False
+        }
+
+        return render(request, 'users/save-user.html', context)
 
 def edit_profile(request):
     context = {}
@@ -28,9 +35,13 @@ def edit_profile(request):
         return HttpResponseRedirect(reverse('campus:user_profile'))
     else:
         form = UserChangeForm(instance=request.user)
-        context['form'] = form
+        
+        context = {
+            'form': form,
+            'user_exists': True
+        }
 
-        return render(request, 'users/edit-profile.html', context)
+        return render(request, 'users/save-user.html', context)
 
 def change_password(request):
     context = {}

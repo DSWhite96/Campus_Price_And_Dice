@@ -48,7 +48,7 @@
                                    <td><a href="{% url 'campus:delete_restaurant' restaurant.id %}">&#10005;</a></td>
                                    <td><a href="{% url 'campus:edit_restaurant' restaurant.id %}">&#9998;</a></td>
                               {% endif %}
-                              {% if user.is_maintainer and restaurant.maintainer != user %}
+                              {% if user.is_maintainer and restaurant.maintainer != user and not user.is_staff %}
                                    <td></td>
                                    <td></td>
                               {% endif %}

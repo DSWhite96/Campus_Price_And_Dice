@@ -6,6 +6,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Row, Column
 from django.utils.translation import gettext_lazy as _
 from users.models import User
+from django.forms.widgets import SelectDateWidget
 from django import forms
 
 
@@ -23,7 +24,30 @@ class UserCreationForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'first_name', 
             'last_name', 'date_of_birth', 'first_password',
-            'conf_password', 'is_maintainer_chkbox')
+            'conf_password', 'is_maintainer')
+
+        labels = {
+            'is_maintainer': _('Do you own/manage a restaurant?'),
+        }
+
+        widgets = {
+            'username': forms.TextInput(attrs = {
+                'class': 'form-control'
+            }),
+            'email': forms.EmailInput(attrs = {
+                'class': 'form-control'
+            }),
+            'first_name': forms.TextInput(attrs = {
+                'class': 'form-control'
+            }),
+            'last_name': forms.TextInput(attrs = {
+                'class': 'form-control'
+            }),
+            'date_of_birth': forms.DateInput(attrs = {
+                'class': 'form-control',
+                'type': 'date'
+            }),
+        }
 
     def verify_password_entries(self):
         first_password = self.cleaned_data.get("first_password")
@@ -37,7 +61,6 @@ class UserCreationForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["first_password"])
-        user.is_maintainer = self.cleaned_data["is_maintainer_chkbox"]
         if commit:
             user.save()
         return user
@@ -45,12 +68,10 @@ class UserCreationForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
     
-    #password = ReadOnlyPasswordHashField()
-
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 
-                'date_of_birth', 'is_maintainer')
+            'date_of_birth', 'is_maintainer')
         labels = {
             'is_maintainer': _('Do you own/manage a restaurant?'),
         }
@@ -71,7 +92,8 @@ class UserChangeForm(forms.ModelForm):
                 'class': 'form-control'
             }),
             'date_of_birth': forms.DateInput(attrs = {
-                'class': 'form-control'
+                'class': 'form-control',
+                'type': 'date'
             }),
         
         }

@@ -76,7 +76,7 @@ class User(AbstractBaseUser):
     )
 
     date_of_birth = models.DateField(
-        verbose_name='Date of Birth'
+        verbose_name='Date of Birth',
     )
 
     is_maintainer = models.BooleanField(default=False)

@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'compare.apps.CompareConfig',
     'crispy_forms',
+    'easy_maps',
+    'address',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
