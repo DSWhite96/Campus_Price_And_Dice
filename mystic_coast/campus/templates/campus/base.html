@@ -57,7 +57,7 @@
                     </li>
                     {% endblock %}
 
-                    {% if user.is_staff %}
+                    {% if user.is_staff or user.is_admin or user.is_maintainer %}
                         {% block  configure_dropdown_link %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -106,8 +106,9 @@
         {% endif %}
         {% block body %}
         {% endblock %}
-       
 
+        <!-- The <br> tags are used to create some space at the end of the page -->
+        <br><br>
 
         <script 
             src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 

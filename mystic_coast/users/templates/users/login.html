@@ -17,12 +17,7 @@
 <div class="container">
     <form method="POST">
         {% csrf_token %}
-    
         <fieldset class="form-group">
-            <!-- DERRICK: 
-                    The 'Log In' text, in order to have good vertical spacing from the navbar,
-                    should use the 'content-top' class. It's defined in static/campus/style.css 
-            -->
             <div class="col-lg-5">
                 <legend class="border-bottom mb-4 content-top">Log In</legend>
                 {{ form | crispy}}

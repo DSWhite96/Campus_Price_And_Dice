@@ -1,3 +1,0 @@
-Name: Dummy 
-Phone #: (313) 525-0022 
-Location: 123 Main St, New York, NY

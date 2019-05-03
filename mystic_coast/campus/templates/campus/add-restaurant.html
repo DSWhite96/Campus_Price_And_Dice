@@ -47,11 +47,11 @@
             {% if is_data_preloaded %}
                 <input type="hidden" name="restaurant_id" value={{restaurant_id}}>
             {% endif %}
+
             <div class="row">
                 <div class="col-lg-6">
-                    <label for = "restaurant_name">Name</label>
-                    <input type="text" class="form-control" id="restaurant_name" 
-                        name="restaurant_name" value="{{name}}">
+                    {{ preliminary_info_form.name.label_tag }}
+                    {{ preliminary_info_form.name}}
                     <small class="text-muted">Enter your restaurant's name</small>
                 </div>
                 <div class="col-lg-6">

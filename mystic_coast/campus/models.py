@@ -2,9 +2,23 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.conf import settings
+from address.models import AddressField
 import logging
+import gettext
 
-DEFAULT_HOURS = '8AM - 10PM'
+_ = gettext.gettext
+DEFAULT_HOURS = '8:00AM - 10:00PM'
+
+WEEKDAYS = [
+    (1, _("Sunday")),
+    (2, _("Monday")),
+    (3, _("Tuesday")),
+    (4, _("Wednesday")),
+    (5, _("Thursday")),
+    (6, _("Friday")),
+    (7, _("Saturday"))
+]
 
 class Item(models.Model):
     price = models.FloatField(default=0)
@@ -12,21 +26,37 @@ class Item(models.Model):
     description = models.CharField(max_length=100, default='No description')
   
 class Restaurant(models.Model):
-    name = models.CharField(max_length=200)
-    location = models.CharField(max_length=200)
-    phone_number = models.CharField(max_length=20, default='(xxx) xxx-xxxx')
-    description = models.CharField(max_length=300, default='No description added')
+    
+    name = models.CharField(
+        verbose_name='Restaurant Name',
+        max_length=200
+    )
 
-    #Ideally, should convert this to JSONField
-    #Only a temporary solution for the time being
-    sunday = models.CharField(max_length=20, default=DEFAULT_HOURS)
-    monday = models.CharField(max_length=20, default=DEFAULT_HOURS)
-    tuesday = models.CharField(max_length=20, default=DEFAULT_HOURS)
-    wednesday = models.CharField(max_length=20, default=DEFAULT_HOURS)
-    thursday = models.CharField(max_length=20, default=DEFAULT_HOURS)
-    friday = models.CharField(max_length=20, default=DEFAULT_HOURS)
-    saturday = models.CharField(max_length=20, default=DEFAULT_HOURS)
+    location = AddressField(
+        verbose_name='Location',
+        max_length=200,
+        on_delete=models.CASCADE
+    )
 
+    phone_number = models.CharField(
+        verbose_name='(Primary) Phone Number',
+        max_length=20, 
+        default='(xxx) xxx-xxxx'
+    )
+
+    description = models.CharField(
+        verbose_name='Tell us abbout your restaurant!',
+        max_length=300, 
+        default='No description added'
+    )
+
+    #User that owns the restaurant
+    maintainer = models.ForeignKey( 
+        default=None,
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    
     #initial null list of item_list 
     item_list = models.ManyToManyField(Item)
 
@@ -116,22 +146,11 @@ class Restaurant(models.Model):
         return expensive_item
 
 
-'''class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    favorite_restaurant_list = models.ManyToManyField(Restaurant)
+class BusinessHours(models.Model):
+    restaurant = models.ForeignKey(
+        to=Restaurant, 
+        on_delete=models.CASCADE
+    )
 
-    def get_favorite_restaurants(self):
-        favorite_rest = self.favorite_restaurant_list.all()
-        return favorite_rest
-
-    def add_favorite_restaurant(self, restaurant):
-        self.favorite_restaurant_list.add(restaurant)
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()'''
+    opening_time = models.TimeField()
+    closing_time = models.TimeField()

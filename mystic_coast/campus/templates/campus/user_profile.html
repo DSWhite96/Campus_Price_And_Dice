@@ -10,7 +10,13 @@
 {% block body %}
 <div class="container">
     <div class="text-center content-top">
-        <h3>User Profile</h3>
+        <h3>User Profile</h3> 
+    </div>
+    <div class="row">
+        <p>
+            (<a href="{% url 'users:edit_profile' %}">Edit</a>)
+            (<a href="{% url 'users:change_password' %}">Change Password</a>)
+        </p>
     </div>
     <div class="row">
         <p class="lead">Username: {{user.username}}</p>

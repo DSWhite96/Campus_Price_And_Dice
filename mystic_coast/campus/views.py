@@ -1,9 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
+from django.contrib import auth
 from django.urls import reverse
 from .models import Restaurant, Item, User
 from .verification import verify_restaurant, verify_item
 from .verification import save_restaurant_log
+from campus.forms import SaveRestaurantForm
 import random
 import json
 
@@ -54,104 +56,18 @@ def restaurant_detail(request, restaurant_id, context={}):
     attributes into a restaruant and saves it
 '''
 def add_restaurant_action(request, context = {}):
-    data = request.POST
-    invalid_form = False
-    error_message = ''
+    context = {}
 
-    restaurant_id = data.get('restaurant_id', None)
+    if request.method == 'POST':
+        preliminary_info_form = SaveRestaurantForm(request)
 
-    try:
-        restaurant = Restaurant.objects.get(pk=restaurant_id)
-        is_save = True
-    except Restaurant.DoesNotExist:
-        is_save = False
-
-    name = data.get('restaurant_name', '')
-    location = data.get('restaurant_location', '')
-    phone_number = data.get('phone_number', '')
-    description = data.get('restaurant_description', '')
-    
-    sunday = data.get('sunday', '')
-    monday = data.get('monday', '')
-    tuesday = data.get('tuesday', '')
-    wednesday = data.get('wednesday', '')
-    thursday = data.get('thursday', '')
-    friday = data.get('friday', '')
-    saturday = data.get('saturday', '')
-    
-    #Info to send back to the page in-case server-side verification
-    #fails
-    context['name'] = name
-    context['location'] = location
-    context['phone_number'] = phone_number
-    context['restaurant_description'] = description
-    context['sunday'] = sunday
-    context['monday'] = monday
-    context['tuesday'] = tuesday
-    context['wednesday'] = wednesday
-    context['thursday'] = thursday
-    context['friday'] = friday
-    context['saturday'] = saturday
-
-    is_prelim_info_correct = verify_restaurant.preliminary_info(name, location, phone_number)
-    
-    if not (is_prelim_info_correct == 'SUCCESS'):
-        invalid_form = True
-
-        if (is_prelim_info_correct == 'PHONE_LENGTH'):
-            error_message = "Your phone number is too large or too small"
-        elif (is_prelim_info_correct == 'NAME_LENGTH'):
-            error_message = "Your name's length is too large or too small"
-        elif (is_prelim_info_correct == 'LOCATION_LENGTH'):
-            error_message = "Your location's length is too large or too small"
-        else:
-            error_message = "Something went wrong!"
-
-        context['form_error'] = error_message
     else:
-        if is_save:
-            restaurant.name = name
-            restaurant.location = location
-            restaurant.phone_number = phone_number
-            restaurant.description = description
-
-            restaurant.sunday = data['sunday']
-            restaurant.monday = data['monday']
-            restaurant.tuesday = data['tuesday']
-            restaurant.wednesday = data['wednesday']
-            restaurant.thursday = data['thursday']
-            restaurant.friday = data['friday']
-            restaurant.saturday = data['saturday']
-        else:
-            name = data['restaurant_name']
-            location = data['restaurant_location']
-            phone_number = data['phone_number']
-            description = data['restaurant_description']
-
-            sunday = data['sunday']
-            monday = data['monday']
-            tuesday = data['tuesday']
-            wednesday = data['wednesday']
-            thursday = data['thursday']
-            friday = data['friday']
-            saturday = data['saturday']
-
-    if invalid_form:
-        return add_restaurant_page(request, context)
-    else:
+        preliminary_info_form = SaveRestaurantForm()
         
-        if not is_save:
-            restaurant = Restaurant(name=name, 
-                location=location, phone_number=phone_number, description=description, sunday=sunday,
-                monday=monday, tuesday=tuesday, wednesday=wednesday, thursday=thursday,
-                friday=friday, saturday=saturday)
+        context['preliminary_info_form'] = preliminary_info_form
 
-        save_restaurant_log.log_restaurant(restaurant.name, restaurant.id, restaurant.phone_number, restaurant.location)
-        restaurant.save()
-
-        return HttpResponseRedirect(reverse('campus:restaurant_detail', 
-        kwargs={'restaurant_id': restaurant.id}))
-
+        return render(request, 'campus/add-restaurant.html', context)
+  
 
 def edit_restaurant(request, restaurant_id):
     context = {}
@@ -262,7 +178,16 @@ def load_item(request, item_id, restaurant_id):
 
 
 def add_restaurant_page(request, context={}):
-    return render(request, 'campus/add-restaurant.html', context)
+    context = {}
+
+    if request.method == 'POST':
+        preliminary_info_form = SaveRestaurantForm(request)
+
+    else:
+        preliminary_info_form = SaveRestaurantForm()
+        
+        context['preliminary_info_form'] = preliminary_info_form
+
 
 
 '''def add_favorite_restaurant(request, restaurant_id):
