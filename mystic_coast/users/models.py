@@ -19,8 +19,7 @@ class UserManager(BaseUserManager):
             date_of_birth=date_of_birth
         )
 
-        user.is_staff = False
-        #user.is_admin = False
+        user.is_admin = False
         user.set_password(password)
         user.save(using=self._db)
 
@@ -40,7 +39,7 @@ class UserManager(BaseUserManager):
             date_of_birth=date_of_birth
         )
 
-        user.is_staff = True
+  
         user.is_admin = True
         user.set_password(password)
         user.save(using=self._db)

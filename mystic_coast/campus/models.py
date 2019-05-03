@@ -5,7 +5,9 @@ from django.dispatch import receiver
 from django.conf import settings
 from address.models import AddressField
 import logging
+import gettext
 
+_ = gettext.gettext
 DEFAULT_HOURS = '8:00AM - 10:00PM'
 
 WEEKDAYS = [
@@ -17,15 +19,6 @@ WEEKDAYS = [
     (6, _("Friday")),
     (7, _("Saturday"))
 ]
-
-class BusinessHours(models.Model):
-    restaurant = models.ForeignKey(
-        'Restaurant', 
-        on_delete=models.CASCADE
-    )
-
-    opening_time = models.TimeField()
-    closing_time = models.TimeField()
 
 class Item(models.Model):
     price = models.FloatField(default=0)
@@ -56,7 +49,7 @@ class Restaurant(models.Model):
         max_length=300, 
         default='No description added'
     )
-    
+
     #User that owns the restaurant
     maintainer = models.ForeignKey( 
         default=None,
@@ -151,3 +144,13 @@ class Restaurant(models.Model):
                     expensive_item = i.name
                     break
         return expensive_item
+
+
+class BusinessHours(models.Model):
+    restaurant = models.ForeignKey(
+        to=Restaurant, 
+        on_delete=models.CASCADE
+    )
+
+    opening_time = models.TimeField()
+    closing_time = models.TimeField()
